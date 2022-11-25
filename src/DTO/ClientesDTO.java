@@ -10,7 +10,15 @@ package DTO;
  */
 public class ClientesDTO {
     String nome_cliente,endereco_cliente,email_cliente;
-int cpfcnpj_cliente,telefone_cliente;
+int id_cliente,cpfcnpj_cliente,telefone_cliente;
+
+    public int getId_cliente() {
+        return id_cliente;
+    }
+
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
+    }
 
 public String getNome_cliente() {
 	return nome_cliente;

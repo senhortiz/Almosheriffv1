@@ -6,6 +6,9 @@ package View;
 
 import DAO.FabricantesDAO;
 import DTO.FabricantesDTO;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +21,7 @@ public class CadastroFabricante extends javax.swing.JFrame {
      */
     public CadastroFabricante() {
         initComponents();
+        ListarFabricantes();
     }
 
     /**
@@ -31,63 +35,171 @@ public class CadastroFabricante extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         txtNomeFabricante = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaFabricantes = new javax.swing.JTable();
+        btnDeletar = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
+        txtNomeFabricante1 = new javax.swing.JFormattedTextField();
+        txtCodigo = new javax.swing.JFormattedTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabel1.setText("Cadastro de Fabricantes");
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
-        jButton1.setText("Salvar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel1.setText("Fabricantes");
+
+        btnSalvar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/botao-adicionar.png"))); // NOI18N
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel2.setText("Fabricante");
+
+        tabelaFabricantes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Codigo", "Fabricante"
+            }
+        ) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        });
+        tabelaFabricantes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tabelaFabricantes.setGridColor(new java.awt.Color(255, 255, 255));
+        tabelaFabricantes.setSelectionBackground(new java.awt.Color(153, 204, 255));
+        tabelaFabricantes.getTableHeader().setReorderingAllowed(false);
+        tabelaFabricantes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaFabricantesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelaFabricantes);
+
+        btnDeletar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btnDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/excluir.png"))); // NOI18N
+        btnDeletar.setText("Deletar");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
+
+        btnAlterar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/intercambio.png"))); // NOI18N
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+
+        btnPesquisar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/lupa.png"))); // NOI18N
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+
+        txtCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCodigo.setEnabled(false);
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel3.setText("Codigo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(txtNomeFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(76, 76, 76))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(161, 161, 161))))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnSalvar)
+                    .addComponent(txtNomeFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(95, 95, 95)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAlterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDeletar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(253, 253, 253)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(btnPesquisar)
+                            .addComponent(txtNomeFabricante1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNomeFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                        .addComponent(txtNomeFabricante1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNomeFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(42, 42, 42)
-                .addComponent(jButton1)
-                .addGap(22, 22, 22))
+                    .addComponent(btnDeletar)
+                    .addComponent(btnAlterar)
+                    .addComponent(btnPesquisar))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,17 +209,36 @@ public class CadastroFabricante extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                                String nomeFabricante;
-				
-				nomeFabricante = txtNomeFabricante.getText();
-				
-				FabricantesDTO objfabricantedto = new FabricantesDTO();
-				objfabricantedto.setNome_fabricante(nomeFabricante);
-				
-				FabricantesDAO objfabricantedao = new FabricantesDAO();
-				objfabricantedao.cadastrarFabricantes(objfabricantedto);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+       CadastrarFabricantes();
+       ListarFabricantes();
+       LimparCampos();
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        ExcluirFabricantes();
+        ListarFabricantes();
+        LimparCampos();
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        AlterarFabricantes();
+        ListarFabricantes();
+        LimparCampos();
+       
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void tabelaFabricantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFabricantesMouseClicked
+        CarregarCampos();
+    }//GEN-LAST:event_tabelaFabricantesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -145,10 +276,91 @@ public class CadastroFabricante extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnDeletar;
+    private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabelaFabricantes;
+    private javax.swing.JFormattedTextField txtCodigo;
     private javax.swing.JFormattedTextField txtNomeFabricante;
+    private javax.swing.JFormattedTextField txtNomeFabricante1;
     // End of variables declaration//GEN-END:variables
+public void ListarFabricantes(){
+        try {
+            FabricantesDAO objfabricantesdao = new FabricantesDAO();
+            
+            DefaultTableModel model = (DefaultTableModel)tabelaFabricantes.getModel();
+            
+            model.setNumRows(0);
+            
+            ArrayList<FabricantesDTO> lista = objfabricantesdao.listarFabricantes();
+            
+            for (int num = 0; num < lista.size(); num++) {
+                
+                model.addRow(new Object[]{
+                    lista.get(num).getId_fabricante(),
+                    lista.get(num).getNome_fabricante()
+      
+                });
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
+        }
+}
+public void CarregarCampos(){
+            int setar = tabelaFabricantes.getSelectedRow();
+            
+            txtCodigo.setText(tabelaFabricantes.getModel().getValueAt(setar, 0).toString());
+            txtNomeFabricante.setText(tabelaFabricantes.getModel().getValueAt(setar,1).toString());
+            
+        }
+   
+  public void AlterarFabricantes(){
+       int id_fabricantes;
+       String nome_fabricantes;
+       
+       id_fabricantes = Integer.parseInt(txtCodigo.getText());
+       nome_fabricantes = txtNomeFabricante.getText();
+       
+       FabricantesDTO objfabricantesdto = new FabricantesDTO();
+       objfabricantesdto.setId_fabricante(id_fabricantes);
+       objfabricantesdto.setNome_fabricante(nome_fabricantes);
+       
+       FabricantesDAO objfabricantesdao = new FabricantesDAO();
+       objfabricantesdao.alterarFabricantes(objfabricantesdto);
+   }
+   
+   public void LimparCampos(){
+       txtCodigo.setText("");
+       txtNomeFabricante.setText("");
+       txtNomeFabricante.requestFocus();
+       
+   }
+   public void ExcluirFabricantes(){
+            int id_fabricante;
+            
+            id_fabricante = Integer.parseInt(txtCodigo.getText());
+            
+            FabricantesDTO objfabricantesdto = new FabricantesDTO();
+            objfabricantesdto.setId_fabricante(id_fabricante);
+            
+            FabricantesDAO objfabricantesdao = new FabricantesDAO();
+            objfabricantesdao.excluirFabricantes(objfabricantesdto);
+        }
+   public void CadastrarFabricantes(){
+       String nomeFabricante;
+				
+				nomeFabricante = txtNomeFabricante.getText();
+				
+				FabricantesDTO objfabricantedto = new FabricantesDTO();
+				objfabricantedto.setNome_fabricante(nomeFabricante);
+				
+				FabricantesDAO objfabricantedao = new FabricantesDAO();
+				objfabricantedao.cadastrarFabricantes(objfabricantedto);
+   }
 }

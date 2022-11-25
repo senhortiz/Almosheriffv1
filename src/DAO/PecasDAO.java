@@ -77,6 +77,34 @@ public class PecasDAO {
 				PecasDTO objpecasdto = new PecasDTO();
 				objpecasdto.setCodigo_pecas(rs.getInt("codigo"));
 				objpecasdto.setNome_pecas(rs.getString("nome"));
+				objpecasdto.setFabricante(rs.getString("fabricante"));
+				objpecasdto.setUnidade(rs.getString("unidade"));
+				objpecasdto.setQuantidade(rs.getInt("quantidade"));
+				objpecasdto.setValor(rs.getDouble("valor"));
+				objpecasdto.setLocalizacao(rs.getString("localizacao"));
+				
+				lista.add(objpecasdto);
+			}
+		} catch (SQLException erro) {
+			JOptionPane.showMessageDialog(null,"Falha ao pesquisar");
+		}
+		return lista;
+	}
+	public ArrayList<PecasDTO> buscarPecas(String buscar){
+		
+		String sql = "Select * from pecas where nome like ?";
+		conn = new ConexaoDAO().Conectar();
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1,Integer.parseInt("%"+buscar+"%"));
+			                        
+                        rs = pstm.executeQuery();
+			
+			while(rs.next()) {
+				PecasDTO objpecasdto = new PecasDTO();
+				objpecasdto.setCodigo_pecas(rs.getInt("codigo"));
+				objpecasdto.setNome_pecas(rs.getString("nome"));
 				//*objpecasdto.setFabricante(rs.getString("fabricante"));
 				objpecasdto.setUnidade(rs.getString("unidade"));
 				objpecasdto.setQuantidade(rs.getInt("quantidade"));
@@ -114,5 +142,19 @@ public class PecasDAO {
 		JOptionPane.showMessageDialog(null, "Erro ao alterar informações da peça!" + erro);
 		}
             
+        }
+        public void excluirPecas(PecasDTO objpecasdto){
+            String sql = "delete from pecas where codigo = ?";
+            conn = new ConexaoDAO().Conectar();
+            
+            try {
+                pstm = conn.prepareStatement(sql);
+                pstm.setInt(1,objpecasdto.getCodigo_pecas());
+                
+                pstm.execute();
+                pstm.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,"Erro ao excluir peças!!!");
+            }
         }
 }
