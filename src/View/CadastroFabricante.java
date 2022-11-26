@@ -22,6 +22,11 @@ public class CadastroFabricante extends javax.swing.JFrame {
     public CadastroFabricante() {
         initComponents();
         ListarFabricantes();
+        initComplementos();
+    }
+    
+    public void initComplementos(){
+        this.setLocationRelativeTo(null);
     }
 
     /**

@@ -15,6 +15,11 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+        initComplementos();
+    }
+    
+    public void initComplementos(){
+        this.setLocationRelativeTo(null);
     }
 
     /**

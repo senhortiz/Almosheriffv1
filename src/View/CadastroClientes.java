@@ -22,6 +22,11 @@ public class CadastroClientes extends javax.swing.JFrame {
     public CadastroClientes() {
         initComponents();
         ListarClientes();
+        initComplementos();
+    }
+    
+    public void initComplementos(){
+        this.setLocationRelativeTo(null);
     }
 
     /**

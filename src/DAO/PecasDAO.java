@@ -90,22 +90,78 @@ public class PecasDAO {
 		}
 		return lista;
 	}
-	public ArrayList<PecasDTO> buscarPecas(String buscar){
+	public ArrayList<PecasDTO> buscarPecasCodigo(String buscar){
 		
-		String sql = "Select * from pecas where nome like ?";
+		String sql = "Select * from pecas where codigo like ?";
 		conn = new ConexaoDAO().Conectar();
 		
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1,Integer.parseInt("%"+buscar+"%"));
-			                        
+			pstm.setString(1,"%"+buscar+"%");
+						                        
                         rs = pstm.executeQuery();
 			
 			while(rs.next()) {
 				PecasDTO objpecasdto = new PecasDTO();
 				objpecasdto.setCodigo_pecas(rs.getInt("codigo"));
 				objpecasdto.setNome_pecas(rs.getString("nome"));
-				//*objpecasdto.setFabricante(rs.getString("fabricante"));
+				objpecasdto.setFabricante(rs.getString("fabricante"));
+				objpecasdto.setUnidade(rs.getString("unidade"));
+				objpecasdto.setQuantidade(rs.getInt("quantidade"));
+				objpecasdto.setValor(rs.getDouble("valor"));
+				objpecasdto.setLocalizacao(rs.getString("localizacao"));
+				
+				lista.add(objpecasdto);
+			}
+		} catch (SQLException erro) {
+			JOptionPane.showMessageDialog(null,"Falha ao pesquisaar");
+		}
+		return lista;
+	}
+	public ArrayList<PecasDTO> buscarPecasNome(String buscar){
+		
+		String sql = "Select * from pecas where nome like ?";
+		conn = new ConexaoDAO().Conectar();
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1,"%"+buscar+"%");
+						                        
+                        rs = pstm.executeQuery();
+			
+			while(rs.next()) {
+				PecasDTO objpecasdto = new PecasDTO();
+				objpecasdto.setCodigo_pecas(rs.getInt("codigo"));
+				objpecasdto.setNome_pecas(rs.getString("nome"));
+				objpecasdto.setFabricante(rs.getString("fabricante"));
+				objpecasdto.setUnidade(rs.getString("unidade"));
+				objpecasdto.setQuantidade(rs.getInt("quantidade"));
+				objpecasdto.setValor(rs.getDouble("valor"));
+				objpecasdto.setLocalizacao(rs.getString("localizacao"));
+				
+				lista.add(objpecasdto);
+			}
+		} catch (SQLException erro) {
+			JOptionPane.showMessageDialog(null,"Falha ao pesquisaar");
+		}
+		return lista;
+	}
+	public ArrayList<PecasDTO> buscarPecasLoc(String buscar){
+		
+		String sql = "Select * from pecas where localizacao like ?";
+		conn = new ConexaoDAO().Conectar();
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1,"%"+buscar+"%");
+						                        
+                        rs = pstm.executeQuery();
+			
+			while(rs.next()) {
+				PecasDTO objpecasdto = new PecasDTO();
+				objpecasdto.setCodigo_pecas(rs.getInt("codigo"));
+				objpecasdto.setNome_pecas(rs.getString("nome"));
+				objpecasdto.setFabricante(rs.getString("fabricante"));
 				objpecasdto.setUnidade(rs.getString("unidade"));
 				objpecasdto.setQuantidade(rs.getInt("quantidade"));
 				objpecasdto.setValor(rs.getDouble("valor"));

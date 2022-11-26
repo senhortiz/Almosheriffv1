@@ -21,6 +21,11 @@ public class LoginView extends javax.swing.JFrame {
      */
     public LoginView() {
         initComponents();
+        initComplementos();
+    }
+    
+    public void initComplementos(){
+        this.setLocationRelativeTo(null);
     }
 
     /**
