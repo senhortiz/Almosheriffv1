@@ -6,9 +6,12 @@ package View;
 
 import DAO.FabricantesDAO;
 import DTO.FabricantesDTO;
+import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.lang3.text.WordUtils;
 
 /**
  *
@@ -24,8 +27,8 @@ public class CadastroFabricante extends javax.swing.JFrame {
         ListarFabricantes();
         initComplementos();
     }
-    
-    public void initComplementos(){
+
+    public void initComplementos() {
         this.setLocationRelativeTo(null);
     }
 
@@ -47,10 +50,11 @@ public class CadastroFabricante extends javax.swing.JFrame {
         tabelaFabricantes = new javax.swing.JTable();
         btnDeletar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
-        btnPesquisar = new javax.swing.JButton();
-        txtNomeFabricante1 = new javax.swing.JFormattedTextField();
+        txtPesquisar = new javax.swing.JFormattedTextField();
         txtCodigo = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
+        btnVoltar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,6 +66,17 @@ public class CadastroFabricante extends javax.swing.JFrame {
         btnSalvar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/botao-adicionar.png"))); // NOI18N
         btnSalvar.setText("Salvar");
+        btnSalvar.setBorderPainted(false);
+        btnSalvar.setContentAreaFilled(false);
+        btnSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSalvarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSalvarMouseExited(evt);
+            }
+        });
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -100,6 +115,17 @@ public class CadastroFabricante extends javax.swing.JFrame {
         btnDeletar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/excluir.png"))); // NOI18N
         btnDeletar.setText("Deletar");
+        btnDeletar.setBorderPainted(false);
+        btnDeletar.setContentAreaFilled(false);
+        btnDeletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDeletar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDeletarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDeletarMouseExited(evt);
+            }
+        });
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeletarActionPerformed(evt);
@@ -109,18 +135,26 @@ public class CadastroFabricante extends javax.swing.JFrame {
         btnAlterar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/intercambio.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.setBorderPainted(false);
+        btnAlterar.setContentAreaFilled(false);
+        btnAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAlterarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAlterarMouseExited(evt);
+            }
+        });
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
             }
         });
 
-        btnPesquisar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/lupa.png"))); // NOI18N
-        btnPesquisar.setText("Pesquisar");
-        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisarActionPerformed(evt);
+        txtPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisarKeyReleased(evt);
             }
         });
 
@@ -134,6 +168,18 @@ public class CadastroFabricante extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel3.setText("Codigo");
+
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/voltar.png"))); // NOI18N
+        btnVoltar.setBorderPainted(false);
+        btnVoltar.setContentAreaFilled(false);
+        btnVoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/lupa.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -160,22 +206,26 @@ public class CadastroFabricante extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(253, 253, 253)
+                        .addContainerGap()
+                        .addComponent(btnVoltar)
+                        .addGap(259, 259, 259)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(btnPesquisar)
-                            .addComponent(txtNomeFabricante1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(41, 41, 41)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(285, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVoltar)
+                    .addComponent(jLabel1))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -186,15 +236,19 @@ public class CadastroFabricante extends javax.swing.JFrame {
                             .addComponent(txtNomeFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSalvar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                        .addComponent(txtNomeFabricante1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnSalvar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel4))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDeletar)
-                    .addComponent(btnAlterar)
-                    .addComponent(btnPesquisar))
+                    .addComponent(btnAlterar))
                 .addContainerGap())
         );
 
@@ -215,9 +269,7 @@ public class CadastroFabricante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-       CadastrarFabricantes();
-       ListarFabricantes();
-       LimparCampos();
+        ValidarCamposCadastrar();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
@@ -227,15 +279,9 @@ public class CadastroFabricante extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        AlterarFabricantes();
-        ListarFabricantes();
-        LimparCampos();
-       
-    }//GEN-LAST:event_btnAlterarActionPerformed
+        ValidarCamposAlterar();
 
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPesquisarActionPerformed
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
@@ -244,6 +290,41 @@ public class CadastroFabricante extends javax.swing.JFrame {
     private void tabelaFabricantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFabricantesMouseClicked
         CarregarCampos();
     }//GEN-LAST:event_tabelaFabricantesMouseClicked
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        Inicio objinicio = new Inicio();
+        objinicio.setVisible(true);
+
+        dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnSalvarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseEntered
+        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_btnSalvarMouseEntered
+
+    private void btnSalvarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseExited
+        btnSalvar.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_btnSalvarMouseExited
+
+    private void btnAlterarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseEntered
+        btnAlterar.setForeground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_btnAlterarMouseEntered
+
+    private void btnAlterarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseExited
+        btnAlterar.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_btnAlterarMouseExited
+
+    private void btnDeletarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeletarMouseEntered
+        btnDeletar.setForeground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_btnDeletarMouseEntered
+
+    private void btnDeletarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeletarMouseExited
+        btnDeletar.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_btnDeletarMouseExited
+
+    private void txtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyReleased
+        BuscarFabricantes(txtPesquisar.getText());
+    }//GEN-LAST:event_txtPesquisarKeyReleased
 
     /**
      * @param args the command line arguments
@@ -283,89 +364,138 @@ public class CadastroFabricante extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnDeletar;
-    private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaFabricantes;
     private javax.swing.JFormattedTextField txtCodigo;
     private javax.swing.JFormattedTextField txtNomeFabricante;
-    private javax.swing.JFormattedTextField txtNomeFabricante1;
+    private javax.swing.JFormattedTextField txtPesquisar;
     // End of variables declaration//GEN-END:variables
-public void ListarFabricantes(){
+public void ListarFabricantes() {
         try {
             FabricantesDAO objfabricantesdao = new FabricantesDAO();
-            
-            DefaultTableModel model = (DefaultTableModel)tabelaFabricantes.getModel();
-            
+
+            DefaultTableModel model = (DefaultTableModel) tabelaFabricantes.getModel();
+
             model.setNumRows(0);
-            
+
             ArrayList<FabricantesDTO> lista = objfabricantesdao.listarFabricantes();
-            
+
             for (int num = 0; num < lista.size(); num++) {
-                
+
                 model.addRow(new Object[]{
                     lista.get(num).getId_fabricante(),
                     lista.get(num).getNome_fabricante()
-      
+
                 });
             }
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
+            JOptionPane.showMessageDialog(null, "Erro na pesquisa!");
         }
-}
-public void CarregarCampos(){
-            int setar = tabelaFabricantes.getSelectedRow();
-            
-            txtCodigo.setText(tabelaFabricantes.getModel().getValueAt(setar, 0).toString());
-            txtNomeFabricante.setText(tabelaFabricantes.getModel().getValueAt(setar,1).toString());
-            
-        }
-   
-  public void AlterarFabricantes(){
-       int id_fabricantes;
-       String nome_fabricantes;
-       
-       id_fabricantes = Integer.parseInt(txtCodigo.getText());
-       nome_fabricantes = txtNomeFabricante.getText();
-       
-       FabricantesDTO objfabricantesdto = new FabricantesDTO();
-       objfabricantesdto.setId_fabricante(id_fabricantes);
-       objfabricantesdto.setNome_fabricante(nome_fabricantes);
-       
-       FabricantesDAO objfabricantesdao = new FabricantesDAO();
-       objfabricantesdao.alterarFabricantes(objfabricantesdto);
-   }
-   
-   public void LimparCampos(){
-       txtCodigo.setText("");
-       txtNomeFabricante.setText("");
-       txtNomeFabricante.requestFocus();
-       
-   }
-   public void ExcluirFabricantes(){
-            int id_fabricante;
-            
-            id_fabricante = Integer.parseInt(txtCodigo.getText());
-            
-            FabricantesDTO objfabricantesdto = new FabricantesDTO();
-            objfabricantesdto.setId_fabricante(id_fabricante);
-            
+    }
+
+    public void BuscarFabricantes(String buscar) {
+        try {
             FabricantesDAO objfabricantesdao = new FabricantesDAO();
-            objfabricantesdao.excluirFabricantes(objfabricantesdto);
+
+            DefaultTableModel model = (DefaultTableModel) tabelaFabricantes.getModel();
+            model.setNumRows(0);
+
+            ArrayList<FabricantesDTO> lista = objfabricantesdao.buscarFabricante(buscar);
+
+            for (int num = 0; num < lista.size(); num++) {
+                model.addRow(new Object[]{
+                    lista.get(num).getId_fabricante(),
+                    lista.get(num).getNome_fabricante(),
+                });
+            }
+        } catch (Exception erro) {
+            //JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
         }
-   public void CadastrarFabricantes(){
-       String nomeFabricante;
-				
-				nomeFabricante = txtNomeFabricante.getText();
-				
-				FabricantesDTO objfabricantedto = new FabricantesDTO();
-				objfabricantedto.setNome_fabricante(nomeFabricante);
-				
-				FabricantesDAO objfabricantedao = new FabricantesDAO();
-				objfabricantedao.cadastrarFabricantes(objfabricantedto);
-   }
+    }
+
+    public void CarregarCampos() {
+        int setar = tabelaFabricantes.getSelectedRow();
+
+        txtCodigo.setText(tabelaFabricantes.getModel().getValueAt(setar, 0).toString());
+        txtNomeFabricante.setText(tabelaFabricantes.getModel().getValueAt(setar, 1).toString());
+
+    }
+
+    public void AlterarFabricantes() {
+        int id_fabricantes;
+        String nome_fabricantes;
+
+        id_fabricantes = Integer.parseInt(txtCodigo.getText());
+        nome_fabricantes = txtNomeFabricante.getText();
+
+        FabricantesDTO objfabricantesdto = new FabricantesDTO();
+        objfabricantesdto.setId_fabricante(id_fabricantes);
+        objfabricantesdto.setNome_fabricante(nome_fabricantes);
+
+        FabricantesDAO objfabricantesdao = new FabricantesDAO();
+        objfabricantesdao.alterarFabricantes(objfabricantesdto);
+    }
+
+    public void LimparCampos() {
+        txtCodigo.setText("");
+        txtNomeFabricante.setText("");
+        txtNomeFabricante.requestFocus();
+
+    }
+
+    public void ExcluirFabricantes() {
+        int id_fabricante;
+
+        id_fabricante = Integer.parseInt(txtCodigo.getText());
+
+        FabricantesDTO objfabricantesdto = new FabricantesDTO();
+        objfabricantesdto.setId_fabricante(id_fabricante);
+
+        FabricantesDAO objfabricantesdao = new FabricantesDAO();
+        objfabricantesdao.excluirFabricantes(objfabricantesdto);
+    }
+
+    public void CadastrarFabricantes() {
+        String nomeFabricante;
+
+        nomeFabricante = txtNomeFabricante.getText();
+
+        FabricantesDTO objfabricantedto = new FabricantesDTO();
+        objfabricantedto.setNome_fabricante(WordUtils.capitalize(nomeFabricante));
+
+        FabricantesDAO objfabricantedao = new FabricantesDAO();
+        objfabricantedao.cadastrarFabricantes(objfabricantedto);
+    }
+
+    public void ValidarCamposCadastrar() {
+        if (txtNomeFabricante.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo fabricante é obrigatório, favor inserir!");
+            txtNomeFabricante.setBorder(BorderFactory.createLineBorder(Color.RED));
+            return;
+
+        }
+        txtNomeFabricante.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        CadastrarFabricantes();
+        LimparCampos();
+        ListarFabricantes();
+    }
+
+    public void ValidarCamposAlterar() {
+        if (txtNomeFabricante.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo fabricante é obrigatório, favor inserir!");
+            txtNomeFabricante.setBorder(BorderFactory.createLineBorder(Color.RED));
+            return;
+        }
+        txtNomeFabricante.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        AlterarFabricantes();
+        LimparCampos();
+        ListarFabricantes();
+    }
 }

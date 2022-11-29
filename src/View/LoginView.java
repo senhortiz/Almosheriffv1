@@ -6,6 +6,7 @@ package View;
 
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -43,6 +44,8 @@ public class LoginView extends javax.swing.JFrame {
         txtSenha = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnNovoUsuario = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,9 +53,31 @@ public class LoginView extends javax.swing.JFrame {
 
         btnEntrar.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnEntrar.setText("Entrar");
+        btnEntrar.setBorderPainted(false);
+        btnEntrar.setContentAreaFilled(false);
+        btnEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEntrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEntrarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEntrarMouseExited(evt);
+            }
+        });
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
+            }
+        });
+        btnEntrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnEntrarKeyPressed(evt);
+            }
+        });
+
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
             }
         });
 
@@ -61,12 +86,41 @@ public class LoginView extends javax.swing.JFrame {
                 txtSenhaActionPerformed(evt);
             }
         });
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel1.setText("Login");
+        jLabel1.setText("Usuário");
 
         jLabel2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel2.setText("Senha");
+
+        btnNovoUsuario.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btnNovoUsuario.setText("Cadastrar Novo Usuário");
+        btnNovoUsuario.setBorderPainted(false);
+        btnNovoUsuario.setContentAreaFilled(false);
+        btnNovoUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNovoUsuario.setDefaultCapable(false);
+        btnNovoUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNovoUsuarioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnNovoUsuarioMouseExited(evt);
+            }
+        });
+        btnNovoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoUsuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sheriff-badge.png"))); // NOI18N
+        jLabel3.setText("Almosheriff");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,17 +129,21 @@ public class LoginView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(158, 158, 158)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEntrar))
+                    .addComponent(btnEntrar)
+                    .addComponent(btnNovoUsuario)
+                    .addComponent(jLabel3))
                 .addContainerGap(158, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(83, 83, 83)
+                .addGap(14, 14, 14)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -93,9 +151,11 @@ public class LoginView extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnEntrar)
-                .addGap(29, 29, 29))
+                .addGap(43, 43, 43)
+                .addComponent(btnNovoUsuario)
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -108,7 +168,9 @@ public class LoginView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -119,33 +181,47 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-       try {				String nome_usuario, senha_usuario;
-					
-					nome_usuario = txtUsuario.getText();
-					senha_usuario = txtSenha.getText();
-					
-					UsuarioDTO dfUsuario = new UsuarioDTO ();
-					dfUsuario.setNome_usuario(nome_usuario);
-					dfUsuario.setSenha_usuario(senha_usuario);
-					
-					UsuarioDAO bancoalmox = new UsuarioDAO();
-					ResultSet rsUsuarioDAO = bancoalmox.autentificacaoUsuario(dfUsuario);
-					
-					if (rsUsuarioDAO.next()) {
-						JOptionPane.showMessageDialog(null,"Login Realizado com sucesso!!!");
-						Inicio objinicio = new Inicio();
-                                                objinicio.setVisible(true);
-                                                
-                                                dispose();
-					} else {
-						JOptionPane.showMessageDialog(null, "Usuario ou Senha Invalida");
-					}
-				} catch (SQLException erro) {
-					JOptionPane.showMessageDialog(null, "LoginView" + erro);
-				}
-				
-			
+       		Logar();
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void btnEntrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseEntered
+        btnEntrar.setForeground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_btnEntrarMouseEntered
+
+    private void btnEntrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseExited
+        btnEntrar.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_btnEntrarMouseExited
+
+    private void btnNovoUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoUsuarioMouseEntered
+        btnNovoUsuario.setForeground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_btnNovoUsuarioMouseEntered
+
+    private void btnNovoUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoUsuarioMouseExited
+        btnNovoUsuario.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_btnNovoUsuarioMouseExited
+
+    private void btnNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoUsuarioActionPerformed
+        CadastroUsuario objusuario = new CadastroUsuario();
+        objusuario.setVisible(true);
+        
+        dispose();
+    }//GEN-LAST:event_btnNovoUsuarioActionPerformed
+
+    private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEntrarKeyPressed
+        
+    }//GEN-LAST:event_btnEntrarKeyPressed
+
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Logar();
+        }
+    }//GEN-LAST:event_txtSenhaKeyPressed
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Logar();
+        }
+    }//GEN-LAST:event_txtUsuarioKeyPressed
 
     /**
      * @param args the command line arguments
@@ -184,10 +260,38 @@ public class LoginView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;
+    private javax.swing.JButton btnNovoUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JFormattedTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+public void Logar(){
+    try {				String nome_usuario, senha_usuario;
+					
+					nome_usuario = txtUsuario.getText();
+					senha_usuario = txtSenha.getText();
+					
+					UsuarioDTO dfUsuario = new UsuarioDTO ();
+					dfUsuario.setNome_usuario(nome_usuario);
+					dfUsuario.setSenha_usuario(senha_usuario);
+					
+					UsuarioDAO bancoalmox = new UsuarioDAO();
+					ResultSet rsUsuarioDAO = bancoalmox.autentificacaoUsuario(dfUsuario);
+					
+					if (rsUsuarioDAO.next()) {
+						JOptionPane.showMessageDialog(null,"Login Realizado com sucesso!!!");
+						Inicio objinicio = new Inicio();
+                                                objinicio.setVisible(true);
+                                                
+                                                dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "Usuario ou Senha Invalida");
+					}
+				} catch (SQLException erro) {
+					JOptionPane.showMessageDialog(null, "LoginView" + erro);
+				}
+}
 }

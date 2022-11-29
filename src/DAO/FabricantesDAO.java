@@ -97,5 +97,28 @@ public void alterarFabricantes(FabricantesDTO objfabricantesdto){
                 JOptionPane.showMessageDialog(null,"Erro ao excluir peças!!!");
             }
         }
+        public ArrayList<FabricantesDTO> buscarFabricante(String buscar){
+		
+		String sql = "Select * from fabricante where nome like ?";
+		conn = new ConexaoDAO().Conectar();
+		
+		try {
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1,"%"+buscar+"%");
+						                        
+                        rs = pstm.executeQuery();
+			
+			while(rs.next()) {
+				FabricantesDTO objfabricantedto = new FabricantesDTO();
+				objfabricantedto.setId_fabricante(rs.getInt("id"));
+				objfabricantedto.setNome_fabricante(rs.getString("nome"));
+								
+				lista.add(objfabricantedto);
+			}
+		} catch (Exception erro) {
+			JOptionPane.showMessageDialog(null,"Falha ao pesquisar");
+		}
+		return lista;
+	}
 }
 

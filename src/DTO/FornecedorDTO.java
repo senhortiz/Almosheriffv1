@@ -10,8 +10,8 @@ package DTO;
  */
 public class FornecedorDTO {
 
-    String nome_fornecedor, endereco_fornecedor, email_fornecedor;
-    int cnpj_fornecedor, id_fornecedor, telefone_fornecedor;
+    String nome_fornecedor, endereco_fornecedor, email_fornecedor,cnpj_fornecedor, telefone_fornecedor;
+    int  id_fornecedor,numero_endereco;
 
     public int getId_fornecedor() {
         return id_fornecedor;
@@ -19,6 +19,22 @@ public class FornecedorDTO {
 
     public void setId_fornecedor(int id_fornecedor) {
         this.id_fornecedor = id_fornecedor;
+    }
+
+    public String getCnpj_fornecedor() {
+        return cnpj_fornecedor;
+    }
+
+    public void setCnpj_fornecedor(String cnpj_fornecedor) {
+        this.cnpj_fornecedor = cnpj_fornecedor;
+    }
+
+    public String getTelefone_fornecedor() {
+        return telefone_fornecedor;
+    }
+
+    public void setTelefone_fornecedor(String telefone_fornecedor) {
+        this.telefone_fornecedor = telefone_fornecedor;
     }
 
     public String getNome_fornecedor() {
@@ -45,19 +61,12 @@ public class FornecedorDTO {
         this.email_fornecedor = email_fornecedor;
     }
 
-    public int getCnpj_fornecedor() {
-        return cnpj_fornecedor;
+    public int getNumero_endereco() {
+        return numero_endereco;
     }
 
-    public void setCnpj_fornecedor(int cnpj_fornecedor) {
-        this.cnpj_fornecedor = cnpj_fornecedor;
+    public void setNumero_endereco(int numero_endereco) {
+        this.numero_endereco = numero_endereco;
     }
-
-    public int getTelefone_fornecedor() {
-        return telefone_fornecedor;
-    }
-
-    public void setTelefone_fornecedor(int telefone_fornecedor) {
-        this.telefone_fornecedor = telefone_fornecedor;
-    }
+    
 }

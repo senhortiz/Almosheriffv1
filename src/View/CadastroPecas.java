@@ -8,11 +8,13 @@ import DAO.ConexaoDAO;
 import DAO.PecasDAO;
 import DTO.PecasDTO;
 import com.sun.jdi.connect.spi.Connection;
+import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,8 +23,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Hector
  */
 public class CadastroPecas extends javax.swing.JFrame {
-Connection conn;
-PreparedStatement pstm;
+
+    Connection conn;
+    PreparedStatement pstm;
+
     /**
      * Creates new form CadastrarPecas
      */
@@ -31,14 +35,13 @@ PreparedStatement pstm;
         initComplementos();
         ListarPecas();
         restaurarDadosCbxFab();
-        
-        }
-    
-    public void initComplementos(){
+
+    }
+
+    public void initComplementos() {
         this.setLocationRelativeTo(null);
     }
-        
-   
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -71,6 +74,8 @@ PreparedStatement pstm;
         radioLoc = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         btnLimpar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
+        radioFabricante = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,7 +92,7 @@ PreparedStatement pstm;
         jLabel3.setText("Unidade");
 
         jLabel5.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel5.setText("Valor");
+        jLabel5.setText("Valor (R$)");
 
         jLabel6.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel6.setText("Localização");
@@ -118,6 +123,14 @@ PreparedStatement pstm;
         btnSalvar.setBorderPainted(false);
         btnSalvar.setContentAreaFilled(false);
         btnSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSalvarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSalvarMouseExited(evt);
+            }
+        });
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -130,6 +143,7 @@ PreparedStatement pstm;
         cbxFabricante.setBackground(new java.awt.Color(0, 153, 255));
         cbxFabricante.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         cbxFabricante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxFabricante.setToolTipText("");
         cbxFabricante.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         tabelaPecas.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -167,6 +181,14 @@ PreparedStatement pstm;
     btnExcluir.setBorderPainted(false);
     btnExcluir.setContentAreaFilled(false);
     btnExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    btnExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            btnExcluirMouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            btnExcluirMouseExited(evt);
+        }
+    });
     btnExcluir.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             btnExcluirActionPerformed(evt);
@@ -198,6 +220,14 @@ PreparedStatement pstm;
     btnAlterar.setBorderPainted(false);
     btnAlterar.setContentAreaFilled(false);
     btnAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    btnAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            btnAlterarMouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            btnAlterarMouseExited(evt);
+        }
+    });
     btnAlterar.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             btnAlterarActionPerformed(evt);
@@ -209,8 +239,9 @@ PreparedStatement pstm;
 
     radioCodigo.setBackground(new java.awt.Color(153, 204, 255));
     buttonGroup1.add(radioCodigo);
-    radioCodigo.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+    radioCodigo.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
     radioCodigo.setText("Codigo");
+    radioCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     radioCodigo.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             radioCodigoActionPerformed(evt);
@@ -219,13 +250,15 @@ PreparedStatement pstm;
 
     radioNome.setBackground(new java.awt.Color(153, 204, 255));
     buttonGroup1.add(radioNome);
-    radioNome.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+    radioNome.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
     radioNome.setText("Nome");
+    radioNome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
     radioLoc.setBackground(new java.awt.Color(153, 204, 255));
     buttonGroup1.add(radioLoc);
-    radioLoc.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+    radioLoc.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
     radioLoc.setText("Localização");
+    radioLoc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     radioLoc.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             radioLocActionPerformed(evt);
@@ -244,10 +277,37 @@ PreparedStatement pstm;
         }
     });
 
+    btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/voltar.png"))); // NOI18N
+    btnVoltar.setBorderPainted(false);
+    btnVoltar.setContentAreaFilled(false);
+    btnVoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnVoltarActionPerformed(evt);
+        }
+    });
+
+    radioFabricante.setBackground(new java.awt.Color(153, 204, 255));
+    buttonGroup1.add(radioFabricante);
+    radioFabricante.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+    radioFabricante.setText("Fabricante");
+    radioFabricante.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    radioFabricante.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            radioFabricanteActionPerformed(evt);
+        }
+    });
+
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(btnVoltar)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel7)
+            .addGap(376, 376, 376))
         .addGroup(jPanel1Layout.createSequentialGroup()
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -262,103 +322,106 @@ PreparedStatement pstm;
                                 .addComponent(jLabel5)
                                 .addComponent(jLabel9)
                                 .addComponent(jLabel6))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbxFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtNomePecas, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                .addComponent(txtLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbxFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNomePecas, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(159, 159, 159)
+                            .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(30, 30, 30)
+                            .addComponent(btnSalvar)
+                            .addGap(0, 0, Short.MAX_VALUE)))
                     .addGap(32, 32, 32))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(radioCodigo)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(radioNome)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(radioLoc)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addComponent(radioCodigo)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(radioNome)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(radioLoc)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(radioFabricante))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(71, 71, 71)
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addComponent(btnAlterar)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(264, 264, 264)
                     .addComponent(btnExcluir))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(17, 17, 17))
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel7)
-            .addGap(376, 376, 376))
-        .addGroup(jPanel1Layout.createSequentialGroup()
-            .addGap(127, 127, 127)
-            .addComponent(btnLimpar)
-            .addGap(18, 18, 18)
-            .addComponent(btnSalvar)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     jPanel1Layout.setVerticalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel1Layout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(jLabel7)
-            .addGap(42, 42, 42)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel7)
+                .addComponent(btnVoltar))
+            .addGap(39, 39, 39)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnExcluir)
+                        .addComponent(btnAlterar))
+                    .addContainerGap(32, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(6, 6, 6)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(txtNomePecas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(8, 8, 8)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(cbxFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(7, 7, 7)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(txtUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(9, 9, 9)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9)
+                        .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(9, 9, 9)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(9, 9, 9)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(txtLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel8)
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(6, 6, 6)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel1)
-                                .addComponent(txtNomePecas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(8, 8, 8)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(cbxFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(7, 7, 7)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(txtUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(9, 9, 9)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel9)
-                                .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(9, 9, 9)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel5)
-                                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(9, 9, 9)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6)
-                                .addComponent(txtLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSalvar))
+                        .addComponent(btnSalvar)
                         .addComponent(btnLimpar))
-                    .addGap(30, 30, 30)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(radioCodigo)
                         .addComponent(radioNome)
-                        .addComponent(radioLoc))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAlterar)
-                    .addComponent(btnExcluir)
-                    .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(jLabel4))
-            .addContainerGap(15, Short.MAX_VALUE))
+                        .addComponent(radioLoc)
+                        .addComponent(radioFabricante))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtPesquisar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -366,12 +429,12 @@ PreparedStatement pstm;
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 843, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 882, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(0, 0, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
     );
 
     jPanel1.getAccessibleContext().setAccessibleName("Cadastro de Peças");
@@ -380,9 +443,7 @@ PreparedStatement pstm;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        CadastrarPecas();
-        ListarPecas();
-        LimparCampos();
+        ValidarCamposCadastrar();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void txtNomePecasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomePecasActionPerformed
@@ -400,15 +461,14 @@ PreparedStatement pstm;
     }//GEN-LAST:event_tabelaPecasMouseClicked
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        AlterarPecas();
-        ListarPecas();
-        LimparCampos();
+        ValidarCamposAlterar();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void txtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyReleased
         RadioCodigo();
         RadioNome();
         RadioLocalizacao();
+        RadioFabricante();
     }//GEN-LAST:event_txtPesquisarKeyReleased
 
     private void txtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisarActionPerformed
@@ -431,11 +491,46 @@ PreparedStatement pstm;
         LimparCampos();
     }//GEN-LAST:event_btnLimparActionPerformed
 
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        Inicio objinicio = new Inicio();
+        objinicio.setVisible(true);
+
+        dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnSalvarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseEntered
+        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_btnSalvarMouseEntered
+
+    private void btnSalvarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseExited
+        btnSalvar.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_btnSalvarMouseExited
+
+    private void btnAlterarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseEntered
+        btnAlterar.setForeground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_btnAlterarMouseEntered
+
+    private void btnAlterarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseExited
+        btnAlterar.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_btnAlterarMouseExited
+
+    private void btnExcluirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseEntered
+        btnExcluir.setForeground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_btnExcluirMouseEntered
+
+    private void btnExcluirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseExited
+        btnExcluir.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_btnExcluirMouseExited
+
+    private void radioFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioFabricanteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioFabricanteActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CadastroPecas().setVisible(true);
@@ -448,6 +543,7 @@ PreparedStatement pstm;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbxFabricante;
     private javax.swing.JLabel jLabel1;
@@ -462,6 +558,7 @@ PreparedStatement pstm;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton radioCodigo;
+    private javax.swing.JRadioButton radioFabricante;
     private javax.swing.JRadioButton radioLoc;
     private javax.swing.JRadioButton radioNome;
     private javax.swing.JTable tabelaPecas;
@@ -473,16 +570,117 @@ PreparedStatement pstm;
     private javax.swing.JFormattedTextField txtUnidade;
     private javax.swing.JFormattedTextField txtValor;
     // End of variables declaration//GEN-END:variables
-    public void ListarPecas(){
+    public void ListarPecas() {
         try {
             PecasDAO objpecasdao = new PecasDAO();
-            
-            DefaultTableModel model = (DefaultTableModel)tabelaPecas.getModel();
-            
+
+            DefaultTableModel model = (DefaultTableModel) tabelaPecas.getModel();
+
             model.setNumRows(0);
-            
+
             ArrayList<PecasDTO> lista = objpecasdao.listarPecas();
-            
+
+            for (int num = 0; num < lista.size(); num++) {
+                model.addRow(new Object[]{
+                    lista.get(num).getCodigo_pecas(),
+                    lista.get(num).getNome_pecas(),
+                    lista.get(num).getFabricante(),
+                    lista.get(num).getUnidade(),
+                    lista.get(num).getQuantidade(),
+                    lista.get(num).getValor(),
+                    lista.get(num).getLocalizacao()
+                });
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro na pesquisa!");
+        }
+    }
+
+    public void BuscarPecasCodigo(String buscar) {
+        try {
+            PecasDAO objpecasdao = new PecasDAO();
+
+            DefaultTableModel model = (DefaultTableModel) tabelaPecas.getModel();
+            model.setNumRows(0);
+
+            ArrayList<PecasDTO> lista = objpecasdao.buscarPecasCodigo(buscar);
+
+            for (int num = 0; num < lista.size(); num++) {
+                model.addRow(new Object[]{
+                    lista.get(num).getCodigo_pecas(),
+                    lista.get(num).getNome_pecas(),
+                    lista.get(num).getFabricante(),
+                    lista.get(num).getUnidade(),
+                    lista.get(num).getQuantidade(),
+                    lista.get(num).getValor(),
+                    lista.get(num).getLocalizacao()
+                });
+
+            }
+        } catch (Exception erro) {
+            //JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
+        }
+    }
+
+    public void BuscarPecasNome(String buscar) {
+        try {
+            PecasDAO objpecasdao = new PecasDAO();
+
+            DefaultTableModel model = (DefaultTableModel) tabelaPecas.getModel();
+            model.setNumRows(0);
+
+            ArrayList<PecasDTO> lista = objpecasdao.buscarPecasNome(buscar);
+
+            for (int num = 0; num < lista.size(); num++) {
+                model.addRow(new Object[]{
+                    lista.get(num).getCodigo_pecas(),
+                    lista.get(num).getNome_pecas(),
+                    lista.get(num).getFabricante(),
+                    lista.get(num).getUnidade(),
+                    lista.get(num).getQuantidade(),
+                    lista.get(num).getValor(),
+                    lista.get(num).getLocalizacao()
+                });
+            }
+        } catch (Exception erro) {
+            //JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
+        }
+    }
+
+    public void BuscarPecasLoc(String buscar) {
+        try {
+            PecasDAO objpecasdao = new PecasDAO();
+
+            DefaultTableModel model = (DefaultTableModel) tabelaPecas.getModel();
+            model.setNumRows(0);
+
+            ArrayList<PecasDTO> lista = objpecasdao.buscarPecasLoc(buscar);
+
+            for (int num = 0; num < lista.size(); num++) {
+                model.addRow(new Object[]{
+                    lista.get(num).getCodigo_pecas(),
+                    lista.get(num).getNome_pecas(),
+                    lista.get(num).getFabricante(),
+                    lista.get(num).getUnidade(),
+                    lista.get(num).getQuantidade(),
+                    lista.get(num).getValor(),
+                    lista.get(num).getLocalizacao()
+                });
+            }
+        } catch (Exception erro) {
+            //JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
+        }
+    }
+
+    public void BuscarPecasFab(String buscar) {
+        try {
+            PecasDAO objpecasdao = new PecasDAO();
+
+            DefaultTableModel model = (DefaultTableModel) tabelaPecas.getModel();
+            model.setNumRows(0);
+
+            ArrayList<PecasDTO> lista = objpecasdao.buscarPecasFab(buscar);
+
             for (int num = 0; num < lista.size(); num++) {
                 model.addRow(new Object[]{
                     lista.get(num).getCodigo_pecas(),
@@ -497,194 +695,280 @@ PreparedStatement pstm;
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
         }
-}
-    public void BuscarPecasCodigo(String buscar){
-        try {
-            PecasDAO objpecasdao = new PecasDAO();
-            
-            DefaultTableModel model = (DefaultTableModel) tabelaPecas.getModel();
-            model.setNumRows(0);
-            
-            ArrayList<PecasDTO> lista = objpecasdao.buscarPecasCodigo(buscar);
-            
-            for (int num = 0; num < lista.size(); num++) {
-                model.addRow(new Object[]{
-                    lista.get(num).getCodigo_pecas(),
-                    lista.get(num).getNome_pecas(),
-                    lista.get(num).getFabricante(),
-                    lista.get(num).getUnidade(),
-                    lista.get(num).getQuantidade(),
-                    lista.get(num).getValor(),
-                    lista.get(num).getLocalizacao()
-                });
-                
-            }
-        } catch (Exception erro) {
-            //JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
-        }
-}
-    public void BuscarPecasNome(String buscar){
-        try {
-            PecasDAO objpecasdao = new PecasDAO();
-            
-            DefaultTableModel model = (DefaultTableModel) tabelaPecas.getModel();
-            model.setNumRows(0);
-            
-            ArrayList<PecasDTO> lista = objpecasdao.buscarPecasNome(buscar);
-            
-            for (int num = 0; num < lista.size(); num++) {
-                model.addRow(new Object[]{
-                    lista.get(num).getCodigo_pecas(),
-                    lista.get(num).getNome_pecas(),
-                    lista.get(num).getFabricante(),
-                    lista.get(num).getUnidade(),
-                    lista.get(num).getQuantidade(),
-                    lista.get(num).getValor(),
-                    lista.get(num).getLocalizacao()
-                });
-            }
-        } catch (Exception erro) {
-            //JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
-        }
-}
-    public void BuscarPecasLoc(String buscar){
-        try {
-            PecasDAO objpecasdao = new PecasDAO();
-            
-            DefaultTableModel model = (DefaultTableModel) tabelaPecas.getModel();
-            model.setNumRows(0);
-            
-            ArrayList<PecasDTO> lista = objpecasdao.buscarPecasLoc(buscar);
-            
-            for (int num = 0; num < lista.size(); num++) {
-                model.addRow(new Object[]{
-                    lista.get(num).getCodigo_pecas(),
-                    lista.get(num).getNome_pecas(),
-                    lista.get(num).getFabricante(),
-                    lista.get(num).getUnidade(),
-                    lista.get(num).getQuantidade(),
-                    lista.get(num).getValor(),
-                    lista.get(num).getLocalizacao()
-                });
-            }
-        } catch (Exception erro) {
-            //JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
-        }
-}
-   private void CarregarCampos(){
-            int setar = tabelaPecas.getSelectedRow();
-            
-            txtCodigo.setText(tabelaPecas.getModel().getValueAt(setar, 0).toString());
-            txtNomePecas.setText(tabelaPecas.getModel().getValueAt(setar,1).toString());
-            cbxFabricante.setSelectedItem(tabelaPecas.getModel().getValueAt(setar,2).toString());
-            txtUnidade.setText(tabelaPecas.getModel().getValueAt(setar, 3).toString());
-            txtQuantidade.setText(tabelaPecas.getModel().getValueAt(setar,4).toString());
-            txtValor.setText(tabelaPecas.getModel().getValueAt(setar, 5).toString());
-            txtLoc.setText(tabelaPecas.getModel().getValueAt(setar, 6).toString());
-            
-        }
-   private void CadastrarPecas(){
-    String nomePecas,unidade,localizacao;
-				int quantidade;
-                                String idFabricante;
-				Double valor;
-				
-				
-				nomePecas = txtNomePecas.getText();
-				idFabricante = cbxFabricante.getSelectedItem().toString();
-                                unidade = txtUnidade.getText();
-				localizacao = txtLoc.getText();
-				quantidade = Integer.parseInt(txtQuantidade.getText());
-				valor = Double.parseDouble(txtValor.getText());
-				
-				PecasDTO objpecasdto = new PecasDTO();
-				objpecasdto.setNome_pecas(nomePecas);
-				objpecasdto.setFabricante(idFabricante);
-				objpecasdto.setUnidade(unidade);
-				objpecasdto.setLocalizacao(localizacao);
-				objpecasdto.setQuantidade(quantidade);
-				objpecasdto.setValor(valor);
-				
-				PecasDAO objpecasdao = new PecasDAO();
-				objpecasdao.cadastrarPecas(objpecasdto);
-}
-   private void LimparCampos(){
-       txtCodigo.setText("");
-       txtNomePecas.setText("");
-       cbxFabricante.setSelectedItem("Selecione");
-       txtUnidade.setText("");
-       txtQuantidade.setText("");
-       txtValor.setText("");
-       txtLoc.setText("");
-       txtNomePecas.requestFocus();
-   }
-   
-   private void AlterarPecas(){
-       int id_pecas,quantidade;
-       String nome_pecas,idFabricante,unidade,localizacao;
-       Double valor;
-       
-       id_pecas = Integer.parseInt(txtCodigo.getText());
-       quantidade = Integer.parseInt(txtQuantidade.getText());
-       nome_pecas = txtNomePecas.getText();
-       idFabricante = cbxFabricante.getSelectedItem().toString();
-       unidade = txtUnidade.getText();
-       localizacao = txtLoc.getText();
-       valor = Double.parseDouble(txtValor.getText());
-       
-       PecasDTO objpecasdto = new PecasDTO();
-       objpecasdto.setCodigo_pecas(id_pecas);
-       objpecasdto.setNome_pecas(nome_pecas);
-       objpecasdto.setFabricante(idFabricante);
-       objpecasdto.setUnidade(unidade);
-       objpecasdto.setQuantidade(quantidade);
-       objpecasdto.setValor(valor);
-       objpecasdto.setLocalizacao(localizacao);
-       
-       PecasDAO objpecasdao = new PecasDAO();
-       objpecasdao.alterarPecas(objpecasdto);
-   }
-   Vector<Integer> id_fabricante = new Vector<Integer>();
-	public void restaurarDadosCbxFab() {
-		
-		try {
-			
-			PecasDAO objpecasdao = new PecasDAO();
-			ResultSet rs = objpecasdao.listarFabricante();
-			
-			while(rs.next()) {
-				id_fabricante.addElement(rs.getInt(1));
-				cbxFabricante.addItem(rs.getString(2));
-			}
-		} catch (SQLException erro) {
-			JOptionPane.showMessageDialog(null, "Erro na cbx ");
-		}
-	}
-        public void ExcluirPecas(){
-            int id_pecas;
-            
-            id_pecas = Integer.parseInt(txtCodigo.getText());
-            
-            PecasDTO objpecasdto = new PecasDTO();
-            objpecasdto.setCodigo_pecas(id_pecas);
-            
-            PecasDAO objpecasdao = new PecasDAO();
-            objpecasdao.excluirPecas(objpecasdto);
-        }
-        public void RadioCodigo(){
-            if(radioCodigo.isSelected()){
-                BuscarPecasCodigo(txtPesquisar.getText());
-                }
-        }
-        public void RadioNome(){
-            if(radioNome.isSelected()){
-                BuscarPecasNome(txtPesquisar.getText());
-            }
-        }
-        public void RadioLocalizacao(){
-            if(radioLoc.isSelected()){
-                BuscarPecasLoc(txtPesquisar.getText());
-            }
-        }
-}
+    }
 
+    private void CarregarCampos() {
+        int setar = tabelaPecas.getSelectedRow();
+
+        txtCodigo.setText(tabelaPecas.getModel().getValueAt(setar, 0).toString());
+        txtNomePecas.setText(tabelaPecas.getModel().getValueAt(setar, 1).toString());
+        cbxFabricante.setSelectedItem(tabelaPecas.getModel().getValueAt(setar, 2).toString());
+        txtUnidade.setText(tabelaPecas.getModel().getValueAt(setar, 3).toString());
+        txtQuantidade.setText(tabelaPecas.getModel().getValueAt(setar, 4).toString());
+        txtValor.setText(tabelaPecas.getModel().getValueAt(setar, 5).toString());
+        txtLoc.setText(tabelaPecas.getModel().getValueAt(setar, 6).toString());
+
+    }
+
+    private void CadastrarPecas() {
+        String nomePecas, unidade, localizacao;
+        int quantidade;
+        String idFabricante;
+        Double valor;
+
+        nomePecas = txtNomePecas.getText();
+        idFabricante = cbxFabricante.getSelectedItem().toString();
+        unidade = txtUnidade.getText();
+        localizacao = txtLoc.getText();
+        quantidade = Integer.parseInt(txtQuantidade.getText());
+        valor = Double.parseDouble(txtValor.getText());
+
+        PecasDTO objpecasdto = new PecasDTO();
+        if (cbxFabricante.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Inserir fabricante valido!");
+            return;
+        } else {
+            objpecasdto.setNome_pecas(nomePecas);
+            objpecasdto.setFabricante(idFabricante);
+            objpecasdto.setUnidade(unidade);
+            objpecasdto.setLocalizacao(localizacao);
+            objpecasdto.setQuantidade(quantidade);
+            objpecasdto.setValor(valor);
+
+            PecasDAO objpecasdao = new PecasDAO();
+            objpecasdao.cadastrarPecas(objpecasdto);
+            ListarPecas();
+            LimparCampos();
+        }
+
+    }
+
+    private void LimparCampos() {
+        txtCodigo.setText("");
+        txtNomePecas.setText("");
+        cbxFabricante.setSelectedItem("Selecione");
+        txtUnidade.setText("");
+        txtQuantidade.setText("");
+        txtValor.setText("");
+        txtLoc.setText("");
+        txtNomePecas.requestFocus();
+
+        txtQuantidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtLoc.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtNomePecas.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtValor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtUnidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+    }
+
+    private void AlterarPecas() {
+        int id_pecas, quantidade;
+        String nome_pecas, idFabricante, unidade, localizacao;
+        Double valor;
+
+        id_pecas = Integer.parseInt(txtCodigo.getText());
+        quantidade = Integer.parseInt(txtQuantidade.getText());
+        nome_pecas = txtNomePecas.getText();
+        idFabricante = cbxFabricante.getSelectedItem().toString();
+        unidade = txtUnidade.getText();
+        localizacao = txtLoc.getText();
+        valor = Double.parseDouble(txtValor.getText());
+
+        PecasDTO objpecasdto = new PecasDTO();
+        if (cbxFabricante.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Insira um fabricante valido!");
+            return;
+        } else {
+            objpecasdto.setCodigo_pecas(id_pecas);
+            objpecasdto.setNome_pecas(nome_pecas);
+            objpecasdto.setFabricante(idFabricante);
+            objpecasdto.setUnidade(unidade);
+            objpecasdto.setQuantidade(quantidade);
+            objpecasdto.setValor(valor);
+            objpecasdto.setLocalizacao(localizacao);
+
+            PecasDAO objpecasdao = new PecasDAO();
+            objpecasdao.alterarPecas(objpecasdto);
+            ListarPecas();
+            LimparCampos();
+        }
+
+    }
+    Vector<Integer> id_fabricante = new Vector<Integer>();
+
+    public void restaurarDadosCbxFab() {
+
+        try {
+
+            PecasDAO objpecasdao = new PecasDAO();
+            ResultSet rs = objpecasdao.listarFabricante();
+
+            while (rs.next()) {
+                id_fabricante.addElement(rs.getInt(1));
+                cbxFabricante.addItem(rs.getString(2));
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro na cbx ");
+        }
+    }
+
+    public void ExcluirPecas() {
+        int id_pecas;
+
+        id_pecas = Integer.parseInt(txtCodigo.getText());
+
+        PecasDTO objpecasdto = new PecasDTO();
+        objpecasdto.setCodigo_pecas(id_pecas);
+
+        PecasDAO objpecasdao = new PecasDAO();
+        objpecasdao.excluirPecas(objpecasdto);
+    }
+
+    public void RadioCodigo() {
+        if (radioCodigo.isSelected()) {
+            BuscarPecasCodigo(txtPesquisar.getText());
+        }
+    }
+
+    public void RadioNome() {
+        if (radioNome.isSelected()) {
+            BuscarPecasNome(txtPesquisar.getText());
+        }
+    }
+
+    public void RadioLocalizacao() {
+        if (radioLoc.isSelected()) {
+            BuscarPecasLoc(txtPesquisar.getText());
+        }
+    }
+
+    public void RadioFabricante() {
+        if (radioFabricante.isSelected()) {
+            BuscarPecasFab(txtPesquisar.getText());
+        }
+    }
+
+    public void ValidarCamposCadastrar() {
+
+        if (txtNomePecas.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo nome é obrigatório, favor preencher!");
+            txtNomePecas.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtQuantidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtUnidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtValor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtLoc.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomePecas.requestFocus();
+            return;
+        }
+
+        if (txtUnidade.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo unidade é obrigatório, favor preencher!");
+            txtUnidade.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtQuantidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomePecas.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtValor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtLoc.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtUnidade.requestFocus();
+            return;
+        }
+
+        if (txtQuantidade.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo quantidade é obrigatório, favor preencher!");
+            txtQuantidade.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtUnidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomePecas.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtValor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtLoc.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtQuantidade.requestFocus();
+            return;
+        }
+        if (txtValor.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo valor é obrigatório, favor preencher!");
+            txtValor.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtQuantidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomePecas.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtUnidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtLoc.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtValor.requestFocus();
+            return;
+        }
+        if (txtLoc.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo localização é obrigatório, favor preencher!");
+            txtLoc.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtQuantidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomePecas.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtValor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtUnidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtLoc.requestFocus();
+            return;
+        }
+        txtQuantidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtLoc.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtNomePecas.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtValor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtUnidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        CadastrarPecas();
+
+    }
+
+    public void ValidarCamposAlterar() {
+        if (txtNomePecas.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo nome é obrigatório, favor preencher!");
+            txtNomePecas.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtQuantidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtUnidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtValor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtLoc.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomePecas.requestFocus();
+            return;
+        }
+
+        if (txtUnidade.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo unidade é obrigatório, favor preencher!");
+            txtUnidade.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtQuantidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomePecas.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtValor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtLoc.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtUnidade.requestFocus();
+            return;
+        }
+        if (txtQuantidade.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo quantidade é obrigatório, favor preencher!");
+            txtQuantidade.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtUnidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomePecas.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtValor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtLoc.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtQuantidade.requestFocus();
+            return;
+        }
+        if (txtValor.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo valor é obrigatório, favor preencher!");
+            txtValor.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtQuantidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomePecas.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtUnidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtLoc.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtValor.requestFocus();
+            return;
+        }
+        if (txtLoc.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo localização é obrigatório, favor preencher!");
+            txtLoc.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtQuantidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomePecas.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtValor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtUnidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtLoc.requestFocus();
+            return;
+        }
+
+        txtQuantidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtLoc.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtNomePecas.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtValor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtUnidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        AlterarPecas();
+
+    }
+}

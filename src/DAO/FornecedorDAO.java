@@ -25,7 +25,7 @@ public class FornecedorDAO {
 	
 public void cadastrarFornecedor(FornecedorDTO objfornecedordto) {
 		
-		String sql = "INSERT INTO  fornecedor (nome,cnpj,endereco,telefone,email) VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO  fornecedor (nome,cnpj,endereco,telefone,email,numero_endereco) VALUES (?,?,?,?,?,?)";
 		
 		conn = new ConexaoDAO().Conectar();
 		CadastroFornecedor objcadastrofornecedor = new CadastroFornecedor();
@@ -34,10 +34,11 @@ public void cadastrarFornecedor(FornecedorDTO objfornecedordto) {
 			
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, objfornecedordto.getNome_fornecedor());
-			pstm.setInt(2, objfornecedordto.getCnpj_fornecedor());
+			pstm.setString(2, objfornecedordto.getCnpj_fornecedor());
 			pstm.setString(3, objfornecedordto.getEndereco_fornecedor());
-			pstm.setInt(4, objfornecedordto.getTelefone_fornecedor());
+			pstm.setString(4, objfornecedordto.getTelefone_fornecedor());
 			pstm.setString(5, objfornecedordto.getEmail_fornecedor());
+                        pstm.setInt(6, objfornecedordto.getNumero_endereco());
 			
 			pstm.execute();
 			pstm.close();
@@ -61,10 +62,11 @@ public void cadastrarFornecedor(FornecedorDTO objfornecedordto) {
 				FornecedorDTO objfornecedordto = new FornecedorDTO();
 				objfornecedordto.setId_fornecedor(rs.getInt("id"));
 				objfornecedordto.setNome_fornecedor(rs.getString("nome"));
-				objfornecedordto.setCnpj_fornecedor(rs.getInt("cnpj"));
+				objfornecedordto.setCnpj_fornecedor(rs.getString("cnpj"));
 				objfornecedordto.setEndereco_fornecedor(rs.getString("endereco"));
-				objfornecedordto.setTelefone_fornecedor(rs.getInt("telefone"));
+				objfornecedordto.setTelefone_fornecedor(rs.getString("telefone"));
 				objfornecedordto.setEmail_fornecedor(rs.getString("email"));
+                                objfornecedordto.setNumero_endereco(rs.getInt("numero_endereco"));
 								
 				lista.add(objfornecedordto);
 			}
@@ -88,10 +90,11 @@ public void cadastrarFornecedor(FornecedorDTO objfornecedordto) {
 				FornecedorDTO objfornecedordto = new FornecedorDTO();
 				objfornecedordto.setId_fornecedor(rs.getInt("id"));
 				objfornecedordto.setNome_fornecedor(rs.getString("nome"));
-				objfornecedordto.setCnpj_fornecedor(rs.getInt("cnpj"));
+				objfornecedordto.setCnpj_fornecedor(rs.getString("cnpj"));
 				objfornecedordto.setEndereco_fornecedor(rs.getString("endereco"));
-				objfornecedordto.setTelefone_fornecedor(rs.getInt("telefone"));
+				objfornecedordto.setTelefone_fornecedor(rs.getString("telefone"));
 				objfornecedordto.setEmail_fornecedor(rs.getString("email"));
+                                objfornecedordto.setNumero_endereco(rs.getInt("numero_endereco"));
 				
 				lista.add(objfornecedordto);
 			}
@@ -115,10 +118,11 @@ public void cadastrarFornecedor(FornecedorDTO objfornecedordto) {
 				FornecedorDTO objfornecedordto = new FornecedorDTO();
 				objfornecedordto.setId_fornecedor(rs.getInt("id"));
 				objfornecedordto.setNome_fornecedor(rs.getString("nome"));
-				objfornecedordto.setCnpj_fornecedor(rs.getInt("cnpj"));
+				objfornecedordto.setCnpj_fornecedor(rs.getString("cnpj"));
 				objfornecedordto.setEndereco_fornecedor(rs.getString("endereco"));
-				objfornecedordto.setTelefone_fornecedor(rs.getInt("telefone"));
+				objfornecedordto.setTelefone_fornecedor(rs.getString("telefone"));
 				objfornecedordto.setEmail_fornecedor(rs.getString("email"));
+                                objfornecedordto.setNumero_endereco(rs.getInt("numero_endereco"));
 				
 				lista.add(objfornecedordto);
 			}
@@ -142,10 +146,12 @@ public void cadastrarFornecedor(FornecedorDTO objfornecedordto) {
 				FornecedorDTO objfornecedordto = new FornecedorDTO();
 				objfornecedordto.setId_fornecedor(rs.getInt("id"));
 				objfornecedordto.setNome_fornecedor(rs.getString("nome"));
-				objfornecedordto.setCnpj_fornecedor(rs.getInt("cnpj"));
+				objfornecedordto.setCnpj_fornecedor(rs.getString("cnpj"));
 				objfornecedordto.setEndereco_fornecedor(rs.getString("endereco"));
-				objfornecedordto.setTelefone_fornecedor(rs.getInt("telefone"));
+				objfornecedordto.setTelefone_fornecedor(rs.getString("telefone"));
 				objfornecedordto.setEmail_fornecedor(rs.getString("email"));
+				objfornecedordto.setNumero_endereco(rs.getInt("numero_endereco"));
+                                
 				
 				lista.add(objfornecedordto);
 			}
@@ -156,18 +162,19 @@ public void cadastrarFornecedor(FornecedorDTO objfornecedordto) {
 	}
         
         public void alterarFornecedor(FornecedorDTO objfornecedordto){
-            String sql = "update fornecedor set nome = ?, cnpj = ?, endereco = ?, telefone = ?, email = ? where id = ?";
+            String sql = "update fornecedor set nome = ?, cnpj = ?, endereco = ?, telefone = ?, email = ?, numero_endereco = ? where id = ?";
             conn = new ConexaoDAO().Conectar();
             
             try {
 			
 			pstm = conn.prepareStatement(sql);
-			pstm.setInt(6, objfornecedordto.getId_fornecedor());
+			pstm.setInt(7, objfornecedordto.getId_fornecedor());
 			pstm.setString(1, objfornecedordto.getNome_fornecedor());
-			pstm.setInt(2, objfornecedordto.getCnpj_fornecedor());
+			pstm.setString(2, objfornecedordto.getCnpj_fornecedor());
 			pstm.setString(3, objfornecedordto.getEndereco_fornecedor());
-			pstm.setInt(4, objfornecedordto.getTelefone_fornecedor());
+			pstm.setString(4, objfornecedordto.getTelefone_fornecedor());
 			pstm.setString(5, objfornecedordto.getEmail_fornecedor());
+                        pstm.setInt(6,objfornecedordto.getNumero_endereco());
 			
 			pstm.execute();
 			pstm.close();

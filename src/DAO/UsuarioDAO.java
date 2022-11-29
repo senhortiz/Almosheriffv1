@@ -5,6 +5,7 @@
 package DAO;
 
 import DTO.UsuarioDTO;
+import View.CadastroUsuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +18,8 @@ import javax.swing.JOptionPane;
  */
 public class UsuarioDAO {
     Connection conexao;
+    PreparedStatement pstm;
+    
 	
 	public ResultSet autentificacaoUsuario(UsuarioDTO bancoalmox) {
 		conexao = new ConexaoDAO().Conectar();
@@ -35,5 +38,27 @@ public class UsuarioDAO {
 			return null;
 		}
 		
+	}
+        
+        public void cadastrarUsuario(UsuarioDTO objusuariodto) {
+		
+		String sql = "INSERT INTO usuario(nome_usuario, senha_usuario) VALUES (?,?)";
+		
+		conexao = new ConexaoDAO().Conectar();
+		CadastroUsuario objusuario = new CadastroUsuario();
+		
+		try {
+			
+			pstm = conexao.prepareStatement(sql);
+			pstm.setString(1, objusuariodto.getNome_usuario());
+			pstm.setString(2, objusuariodto.getSenha_usuario());
+			                        
+			pstm.execute();
+			pstm.close();
+			
+			JOptionPane.showMessageDialog(null,"Usuario cadastrado com sucesso!");
+		} catch (Exception erro) {
+		JOptionPane.showMessageDialog(null, "Usuario já cadastrado!");
+		}
 	}
 }

@@ -6,9 +6,14 @@ package View;
 
 import DAO.FornecedorDAO;
 import DTO.FornecedorDTO;
+import java.awt.Color;
+import static java.awt.Color.red;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Jm.JMascara;
+import org.apache.commons.lang3.text.WordUtils;
 
 /**
  *
@@ -24,7 +29,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         initComplementos();
         ListarFornecedor();
     }
-    
+
     public void initComplementos() {
         this.setLocationRelativeTo(null);
     }
@@ -44,11 +49,9 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         txtNomeFornecedor = new javax.swing.JFormattedTextField();
         btnSalvar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtCnpjFornecedor = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
         txtEnderecoFornecedor = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtTelefoneFornecedor = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         txtEmailFornecedor = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -64,6 +67,11 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JFormattedTextField();
         btnLimpar = new javax.swing.JButton();
+        txtNumero_Endereco = new javax.swing.JFormattedTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtCnpjFornecedor = new javax.swing.JFormattedTextField();
+        txtTelefoneFornecedor = new javax.swing.JFormattedTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,6 +81,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel1.setText("Nome");
 
         txtNomeFornecedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtNomeFornecedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNomeFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeFornecedorActionPerformed(evt);
@@ -85,6 +94,14 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         btnSalvar.setBorderPainted(false);
         btnSalvar.setContentAreaFilled(false);
         btnSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSalvarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSalvarMouseExited(evt);
+            }
+        });
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -94,17 +111,11 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel2.setText("Fornecedores");
 
-        txtCnpjFornecedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-        txtCnpjFornecedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCnpjFornecedorActionPerformed(evt);
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel3.setText("CNPJ");
 
         txtEnderecoFornecedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtEnderecoFornecedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtEnderecoFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEnderecoFornecedorActionPerformed(evt);
@@ -114,17 +125,11 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel4.setText("Endereço");
 
-        txtTelefoneFornecedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-        txtTelefoneFornecedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefoneFornecedorActionPerformed(evt);
-            }
-        });
-
         jLabel5.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel5.setText("Telefone");
 
         txtEmailFornecedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtEmailFornecedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtEmailFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEmailFornecedorActionPerformed(evt);
@@ -142,7 +147,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nome", "CNPJ", "Endereço", "Telefone", "Email"
+                "Codigo", "Nome", "CNPJ", "Endereço", "N°", "Telefone", "Email"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -167,6 +172,14 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         btnDeletar.setBorderPainted(false);
         btnDeletar.setContentAreaFilled(false);
         btnDeletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDeletar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDeletarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDeletarMouseExited(evt);
+            }
+        });
         btnDeletar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeletarActionPerformed(evt);
@@ -179,6 +192,14 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         btnAlterar.setBorderPainted(false);
         btnAlterar.setContentAreaFilled(false);
         btnAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAlterarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAlterarMouseExited(evt);
+            }
+        });
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
@@ -186,6 +207,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         });
 
         txtPesquisar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtPesquisar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesquisarActionPerformed(evt);
@@ -231,6 +253,47 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             }
         });
 
+        txtNumero_Endereco.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtNumero_Endereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumero_EnderecoActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel9.setText("N°");
+
+        txtCnpjFornecedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtCnpjFornecedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCnpjFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCnpjFornecedorActionPerformed(evt);
+            }
+        });
+        txtCnpjFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCnpjFornecedorKeyReleased(evt);
+            }
+        });
+
+        txtTelefoneFornecedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtTelefoneFornecedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTelefoneFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelefoneFornecedorKeyReleased(evt);
+            }
+        });
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/voltar.png"))); // NOI18N
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -246,38 +309,52 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel8)
                             .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(txtTelefoneFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmailFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEnderecoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCnpjFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNomeFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSalvar)
+                        .addGap(18, 26, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtEnderecoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNumero_Endereco, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                .addComponent(txtEmailFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNomeFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSalvar))
+                            .addComponent(txtCnpjFornecedor)
+                            .addComponent(txtTelefoneFornecedor))
+                        .addGap(0, 9, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(168, 168, 168))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(57, 57, 57)
                                 .addComponent(radioCodigo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(radioNome)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radioCnpj))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                                .addComponent(radioCnpj))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnDeletar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(302, 302, 302))
         );
@@ -285,9 +362,18 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(60, 60, 60)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel2))
+                .addGap(57, 57, 57)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnDeletar)
+                            .addComponent(btnAlterar))
+                        .addContainerGap(20, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -303,7 +389,9 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(txtEnderecoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEnderecoFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNumero_Endereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -320,25 +408,19 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(radioCodigo)
                             .addComponent(radioNome)
-                            .addComponent(radioCnpj)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDeletar)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAlterar)
-                        .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel7))
-                .addContainerGap(20, Short.MAX_VALUE))
+                            .addComponent(radioCnpj))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(22, 22, 22))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,31 +435,20 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeFornecedorActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        CadastrarFornecedor();
-        ListarFornecedor();
-        LimparCampos();
+        ValidarCamposCadastrar();
     }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void txtCnpjFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCnpjFornecedorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCnpjFornecedorActionPerformed
 
     private void txtEnderecoFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEnderecoFornecedorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEnderecoFornecedorActionPerformed
-
-    private void txtTelefoneFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneFornecedorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefoneFornecedorActionPerformed
 
     private void txtEmailFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailFornecedorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailFornecedorActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        AlterarFornecedor();
-        ListarFornecedor();
-        LimparCampos();
+        ValidarCamposAlterar();
+        
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
@@ -403,6 +474,53 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         LimparCampos();
     }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void txtNumero_EnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumero_EnderecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumero_EnderecoActionPerformed
+
+    private void txtCnpjFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCnpjFornecedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCnpjFornecedorActionPerformed
+
+    private void txtCnpjFornecedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCnpjFornecedorKeyReleased
+        txtCnpjFornecedor.setText(JMascara.GetJmascaraCpfCnpj(txtCnpjFornecedor.getText()));
+    }//GEN-LAST:event_txtCnpjFornecedorKeyReleased
+
+    private void txtTelefoneFornecedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneFornecedorKeyReleased
+        txtTelefoneFornecedor.setText(JMascara.GetJmascaraFone(txtTelefoneFornecedor.getText()));
+    }//GEN-LAST:event_txtTelefoneFornecedorKeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Inicio objinicio = new Inicio();
+        objinicio.setVisible(true);
+        
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnSalvarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseEntered
+        btnSalvar.setForeground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_btnSalvarMouseEntered
+
+    private void btnSalvarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseExited
+        btnSalvar.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_btnSalvarMouseExited
+
+    private void btnAlterarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseEntered
+        btnAlterar.setForeground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_btnAlterarMouseEntered
+
+    private void btnAlterarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseExited
+        btnAlterar.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_btnAlterarMouseExited
+
+    private void btnDeletarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeletarMouseEntered
+        btnDeletar.setForeground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_btnDeletarMouseEntered
+
+    private void btnDeletarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeletarMouseExited
+        btnDeletar.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_btnDeletarMouseExited
 
     /**
      * @param args the command line arguments
@@ -445,6 +563,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -453,6 +572,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton radioCnpj;
@@ -464,27 +584,30 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtEmailFornecedor;
     private javax.swing.JFormattedTextField txtEnderecoFornecedor;
     private javax.swing.JFormattedTextField txtNomeFornecedor;
+    private javax.swing.JFormattedTextField txtNumero_Endereco;
     private javax.swing.JFormattedTextField txtPesquisar;
     private javax.swing.JFormattedTextField txtTelefoneFornecedor;
     // End of variables declaration//GEN-END:variables
 
     public void CadastrarFornecedor() {
-        String nomeFornecedor, enderecoFornecedor, emailFornecedor;
-        int cnpjFornecedor, telefoneFornecedor;
-        
-        nomeFornecedor = txtNomeFornecedor.getText();
+        String nomeFornecedor, enderecoFornecedor, emailFornecedor, cnpjFornecedor, telefoneFornecedor;
+        int numero_endereco;
+
+        nomeFornecedor = WordUtils.capitalize(txtNomeFornecedor.getText());
         enderecoFornecedor = txtEnderecoFornecedor.getText();
         emailFornecedor = txtEmailFornecedor.getText();
-        cnpjFornecedor = Integer.parseInt(txtCnpjFornecedor.getText());
-        telefoneFornecedor = Integer.parseInt(txtTelefoneFornecedor.getText());
-        
+        cnpjFornecedor = txtCnpjFornecedor.getText();
+        telefoneFornecedor = txtTelefoneFornecedor.getText();
+        numero_endereco = Integer.parseInt(txtNumero_Endereco.getText());
+
         FornecedorDTO objfornecedordto = new FornecedorDTO();
         objfornecedordto.setNome_fornecedor(nomeFornecedor);
         objfornecedordto.setEndereco_fornecedor(enderecoFornecedor);
+        objfornecedordto.setNumero_endereco(numero_endereco);
         objfornecedordto.setEmail_fornecedor(emailFornecedor);
         objfornecedordto.setCnpj_fornecedor(cnpjFornecedor);
         objfornecedordto.setTelefone_fornecedor(telefoneFornecedor);
-        
+
         FornecedorDAO objfornecedordao = new FornecedorDAO();
         objfornecedordao.cadastrarFornecedor(objfornecedordto);
     }
@@ -492,19 +615,20 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     public void ListarFornecedor() {
         try {
             FornecedorDAO objfornecedordao = new FornecedorDAO();
-            
+
             DefaultTableModel model = (DefaultTableModel) tabelaFornecedor.getModel();
-            
+
             model.setNumRows(0);
-            
+
             ArrayList<FornecedorDTO> lista = objfornecedordao.listarFornecedor();
-            
+
             for (int num = 0; num < lista.size(); num++) {
                 model.addRow(new Object[]{
                     lista.get(num).getId_fornecedor(),
                     lista.get(num).getNome_fornecedor(),
                     lista.get(num).getCnpj_fornecedor(),
                     lista.get(num).getEndereco_fornecedor(),
+                    lista.get(num).getNumero_endereco(),
                     lista.get(num).getTelefone_fornecedor(),
                     lista.get(num).getEmail_fornecedor()
                 });
@@ -517,135 +641,142 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     public void BuscarFornecedorCodigo(String buscar) {
         try {
             FornecedorDAO objfornecedordao = new FornecedorDAO();
-            
+
             DefaultTableModel model = (DefaultTableModel) tabelaFornecedor.getModel();
             model.setNumRows(0);
-            
+
             ArrayList<FornecedorDTO> lista = objfornecedordao.buscarFornecedorCodigo(buscar);
-            
+
             for (int num = 0; num < lista.size(); num++) {
                 model.addRow(new Object[]{
                     lista.get(num).getId_fornecedor(),
                     lista.get(num).getNome_fornecedor(),
                     lista.get(num).getCnpj_fornecedor(),
                     lista.get(num).getEndereco_fornecedor(),
+                    lista.get(num).getNumero_endereco(),
                     lista.get(num).getTelefone_fornecedor(),
                     lista.get(num).getEmail_fornecedor()
                 });
-                
+
             }
         } catch (Exception erro) {
-            //JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
+            JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
         }
     }
 
     public void BuscarFornecedorNome(String buscar) {
         try {
             FornecedorDAO objfornecedordao = new FornecedorDAO();
-            
+
             DefaultTableModel model = (DefaultTableModel) tabelaFornecedor.getModel();
             model.setNumRows(0);
-            
+
             ArrayList<FornecedorDTO> lista = objfornecedordao.buscarFornecedorNome(buscar);
-            
+
             for (int num = 0; num < lista.size(); num++) {
                 model.addRow(new Object[]{
                     lista.get(num).getId_fornecedor(),
                     lista.get(num).getNome_fornecedor(),
                     lista.get(num).getCnpj_fornecedor(),
                     lista.get(num).getEndereco_fornecedor(),
+                    lista.get(num).getNumero_endereco(),
                     lista.get(num).getTelefone_fornecedor(),
                     lista.get(num).getEmail_fornecedor()
                 });
             }
         } catch (Exception erro) {
-            //JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
+            JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
         }
     }
 
     public void BuscarFornecedorCnpj(String buscar) {
         try {
             FornecedorDAO objfornecedordao = new FornecedorDAO();
-            
+
             DefaultTableModel model = (DefaultTableModel) tabelaFornecedor.getModel();
             model.setNumRows(0);
-            
+
             ArrayList<FornecedorDTO> lista = objfornecedordao.buscarFornecedorCnpj(buscar);
-            
+
             for (int num = 0; num < lista.size(); num++) {
                 model.addRow(new Object[]{
                     lista.get(num).getId_fornecedor(),
                     lista.get(num).getNome_fornecedor(),
                     lista.get(num).getCnpj_fornecedor(),
                     lista.get(num).getEndereco_fornecedor(),
+                    lista.get(num).getNumero_endereco(),
                     lista.get(num).getTelefone_fornecedor(),
                     lista.get(num).getEmail_fornecedor()
                 });
             }
         } catch (Exception erro) {
-            //JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
+            JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
         }
     }
 
     private void CarregarCampos() {
-        
+
         int setar = tabelaFornecedor.getSelectedRow();
-        
+
         txtCodigo.setText(tabelaFornecedor.getModel().getValueAt(setar, 0).toString());
         txtNomeFornecedor.setText(tabelaFornecedor.getModel().getValueAt(setar, 1).toString());
         txtCnpjFornecedor.setText(tabelaFornecedor.getModel().getValueAt(setar, 2).toString());
         txtEnderecoFornecedor.setText(tabelaFornecedor.getModel().getValueAt(setar, 3).toString());
-        txtTelefoneFornecedor.setText(tabelaFornecedor.getModel().getValueAt(setar, 4).toString());
-        txtEmailFornecedor.setText(tabelaFornecedor.getModel().getValueAt(setar, 5).toString());
-        
+        txtNumero_Endereco.setText(tabelaFornecedor.getModel().getValueAt(setar, 4).toString());
+        txtTelefoneFornecedor.setText(tabelaFornecedor.getModel().getValueAt(setar, 5).toString());
+        txtEmailFornecedor.setText(tabelaFornecedor.getModel().getValueAt(setar, 6).toString());
+
     }
-    
+
     private void LimparCampos() {
-        
+
         txtCodigo.setText("");
         txtNomeFornecedor.setText("");
         txtCnpjFornecedor.setText("");
         txtEnderecoFornecedor.setText("");
+        txtNumero_Endereco.setText("");
         txtTelefoneFornecedor.setText("");
         txtEmailFornecedor.setText("");
         txtNomeFornecedor.requestFocus();
     }
-    
+
     private void AlterarFornecedor() {
-        int id_fornecedor,cnpj_fornecedor, telefone_fornecedor;
-        String nome_fornecedor, endereco_fornecedor, email_fornecedor;
-        
+        int id_fornecedor, numero_endereco;
+        String nome_fornecedor, endereco_fornecedor, email_fornecedor, cnpj_fornecedor, telefone_fornecedor;
+
         id_fornecedor = Integer.parseInt(txtCodigo.getText());
-        cnpj_fornecedor = Integer.parseInt(txtCnpjFornecedor.getText());
-        telefone_fornecedor = Integer.parseInt(txtTelefoneFornecedor.getText());
-        nome_fornecedor = txtNomeFornecedor.getText();
+        cnpj_fornecedor = txtCnpjFornecedor.getText();
+        telefone_fornecedor = txtTelefoneFornecedor.getText();
+        numero_endereco = Integer.parseInt(txtNumero_Endereco.getText());
+        nome_fornecedor = WordUtils.capitalize(txtNomeFornecedor.getText());
         endereco_fornecedor = txtEnderecoFornecedor.getText();
         email_fornecedor = txtEmailFornecedor.getText();
-        
+
         FornecedorDTO objfornecedordto = new FornecedorDTO();
         objfornecedordto.setId_fornecedor(id_fornecedor);
         objfornecedordto.setNome_fornecedor(nome_fornecedor);
         objfornecedordto.setCnpj_fornecedor(cnpj_fornecedor);
         objfornecedordto.setEndereco_fornecedor(endereco_fornecedor);
+        objfornecedordto.setNumero_endereco(numero_endereco);
         objfornecedordto.setTelefone_fornecedor(telefone_fornecedor);
         objfornecedordto.setEmail_fornecedor(email_fornecedor);
-        
+
         FornecedorDAO objfornecedordao = new FornecedorDAO();
         objfornecedordao.alterarFornecedor(objfornecedordto);
     }
-    
+
     public void ExcluirFornecedor() {
         int id_fornecedor;
-        
+
         id_fornecedor = Integer.parseInt(txtCodigo.getText());
-        
+
         FornecedorDTO objfornecedordto = new FornecedorDTO();
         objfornecedordto.setId_fornecedor(id_fornecedor);
-        
+
         FornecedorDAO objfornecedordao = new FornecedorDAO();
         objfornecedordao.excluirFornecedor(objfornecedordto);
     }
-    
+
     public void RadioCodigo() {
         if (radioCodigo.isSelected()) {
             BuscarFornecedorCodigo(txtPesquisar.getText());
@@ -660,7 +791,155 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
     public void RadioCnpj() {
         if (radioCnpj.isSelected()) {
-            BuscarFornecedorCnpj(txtPesquisar.getText());
+            BuscarFornecedorCnpj(JMascara.GetJmascaraCpfCnpj(txtPesquisar.getText()));
         }
+    }
+
+    public void ValidarCamposCadastrar() {
+                if (txtNomeFornecedor.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "O campo nome é obrigatório, favor preencher!");
+                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNomeFornecedor.requestFocus();
+                return;
+            }
+            if (txtCnpjFornecedor.getText().trim().length() < 18) {
+                JOptionPane.showMessageDialog(null, "O campo cnpj é obrigatório, favor preencher!");
+                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtCnpjFornecedor.requestFocus();
+                return;
+            }
+            if (txtEnderecoFornecedor.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "O campo endereço é obrigatório, favor preencher!");
+                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEnderecoFornecedor.requestFocus();
+                return;
+            }
+
+            if (txtNumero_Endereco.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "O campo numero de endereço é obrigatório, favor preencher!");
+                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            }
+
+            if (txtTelefoneFornecedor.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "O campo telefone é obrigatório, favor preencher!");
+                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtTelefoneFornecedor.requestFocus();
+                return;
+            }
+            if (txtEmailFornecedor.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "O campo email é obrigatório, favor preencher!");
+                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEmailFornecedor.requestFocus();
+                return;
+            }
+        txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        CadastrarFornecedor();
+        LimparCampos();
+        ListarFornecedor();
+
+    }
+
+    public void ValidarCamposAlterar() {
+            if (txtNomeFornecedor.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "O campo nome é obrigatório, favor preencher!");
+                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNomeFornecedor.requestFocus();
+
+                return;
+            } else if (txtCnpjFornecedor.getText().trim().length() < 18) {
+                JOptionPane.showMessageDialog(null, "O campo cnpj é obrigatório, favor preencher!");
+                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtCnpjFornecedor.requestFocus();
+                return;
+            }
+            if (txtEnderecoFornecedor.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "O campo endereço é obrigatório, favor preencher!");
+                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEnderecoFornecedor.requestFocus();
+                return;
+            }
+            else if (txtTelefoneFornecedor.getText().trim().length() < 13) {
+                JOptionPane.showMessageDialog(null, "O campo telefone é obrigatório, favor preencher!");
+                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtTelefoneFornecedor.requestFocus();
+                return;
+            }
+            if (txtEmailFornecedor.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "O campo email é obrigatório, favor preencher!");
+                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+                txtEmailFornecedor.requestFocus();
+                return;
+
+            }
+        txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        AlterarFornecedor();
+        LimparCampos();
+        ListarFornecedor();
     }
 }

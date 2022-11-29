@@ -4,6 +4,8 @@
  */
 package View;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Hector
@@ -34,37 +36,153 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnEstoque = new javax.swing.JButton();
+        btnFabricantes = new javax.swing.JButton();
+        btnFornecedores = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Inicio");
+        jPanel2.setBackground(new java.awt.Color(153, 204, 255));
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sheriff-badge.png"))); // NOI18N
+        jLabel1.setText("Almosheriff");
+
+        btnEstoque.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btnEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/estoque-pronto.png"))); // NOI18N
+        btnEstoque.setText("Estoque");
+        btnEstoque.setBorderPainted(false);
+        btnEstoque.setContentAreaFilled(false);
+        btnEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEstoque.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEstoqueMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEstoqueMouseExited(evt);
+            }
+        });
+        btnEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstoqueActionPerformed(evt);
+            }
+        });
+
+        btnFabricantes.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btnFabricantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/fabrica.png"))); // NOI18N
+        btnFabricantes.setText("Fabricantes");
+        btnFabricantes.setBorderPainted(false);
+        btnFabricantes.setContentAreaFilled(false);
+        btnFabricantes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFabricantes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnFabricantesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnFabricantesMouseExited(evt);
+            }
+        });
+        btnFabricantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFabricantesActionPerformed(evt);
+            }
+        });
+
+        btnFornecedores.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btnFornecedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/aperto-de-mao.png"))); // NOI18N
+        btnFornecedores.setText("Fornecedores");
+        btnFornecedores.setBorderPainted(false);
+        btnFornecedores.setContentAreaFilled(false);
+        btnFornecedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFornecedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnFornecedoresMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnFornecedoresMouseExited(evt);
+            }
+        });
+        btnFornecedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFornecedoresActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/usuario.png"))); // NOI18N
+
+        btnSair.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/sair.png"))); // NOI18N
+        btnSair.setText("Sair");
+        btnSair.setBorderPainted(false);
+        btnSair.setContentAreaFilled(false);
+        btnSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSairMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSairMouseExited(evt);
+            }
+        });
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(174, 174, 174)
-                .addComponent(jLabel1)
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEstoque)
+                    .addComponent(btnFabricantes)
+                    .addComponent(btnFornecedores))
+                .addGap(53, 53, 53)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addGap(80, 80, 80)
+                .addComponent(btnSair)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addGap(89, 89, 89)
+                .addComponent(btnEstoque)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnFabricantes)
+                    .addComponent(btnSair))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFornecedores)
+                .addGap(191, 191, 191))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -80,6 +198,74 @@ public class Inicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEstoqueMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEstoqueMouseEntered
+        btnEstoque.setForeground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_btnEstoqueMouseEntered
+
+    private void btnEstoqueMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEstoqueMouseExited
+        btnEstoque.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_btnEstoqueMouseExited
+
+    private void btnFabricantesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFabricantesMouseEntered
+       btnFabricantes.setForeground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_btnFabricantesMouseEntered
+
+    private void btnFabricantesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFabricantesMouseExited
+       btnFabricantes.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_btnFabricantesMouseExited
+
+    private void btnFornecedoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFornecedoresMouseEntered
+        btnFornecedores.setForeground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_btnFornecedoresMouseEntered
+
+    private void btnFornecedoresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFornecedoresMouseExited
+        btnFornecedores.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_btnFornecedoresMouseExited
+
+    private void btnSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseEntered
+        btnSair.setForeground(new java.awt.Color(255,255,255));
+    }//GEN-LAST:event_btnSairMouseEntered
+
+    private void btnSairMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseExited
+        btnSair.setForeground(new java.awt.Color(0,0,0));
+    }//GEN-LAST:event_btnSairMouseExited
+
+    private void btnEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstoqueActionPerformed
+        CadastroPecas objpecas = new CadastroPecas ();
+        objpecas.setVisible(true);
+        
+        dispose();
+    }//GEN-LAST:event_btnEstoqueActionPerformed
+
+    private void btnFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFornecedoresActionPerformed
+        CadastroFornecedor objfornecedor = new CadastroFornecedor();
+        objfornecedor.setVisible(true);
+        
+        dispose();
+    }//GEN-LAST:event_btnFornecedoresActionPerformed
+
+    private void btnFabricantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFabricantesActionPerformed
+        CadastroFabricante objfabricante = new CadastroFabricante();
+        objfabricante.setVisible(true);
+        
+        dispose();
+    }//GEN-LAST:event_btnFabricantesActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+       Object[] opcoes = {"Sim","Nao"};
+        int resultado = JOptionPane.showOptionDialog(null,"Deseja Realmente Sair?", "Sair", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opcoes,opcoes[1]);
+       
+        if (resultado == JOptionPane.YES_OPTION) {
+            LoginView objlogin = new LoginView();
+            objlogin.setVisible(true);
+            
+            dispose();
+            
+        }else {
+            return;
+        }
+    }//GEN-LAST:event_btnSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,7 +303,12 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEstoque;
+    private javax.swing.JButton btnFabricantes;
+    private javax.swing.JButton btnFornecedores;
+    private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
