@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Jm.JMascara;
+import java.awt.Toolkit;
 import org.apache.commons.lang3.text.WordUtils;
 
 /**
@@ -28,6 +29,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         initComponents();
         initComplementos();
         ListarFornecedor();
+        Icone();
     }
 
     public void initComplementos() {
@@ -448,7 +450,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         ValidarCamposAlterar();
-        
+
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
@@ -494,32 +496,32 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Inicio objinicio = new Inicio();
         objinicio.setVisible(true);
-        
+
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSalvarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseEntered
-        btnSalvar.setForeground(new java.awt.Color(255,255,255));
+        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnSalvarMouseEntered
 
     private void btnSalvarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseExited
-        btnSalvar.setForeground(new java.awt.Color(0,0,0));
+        btnSalvar.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_btnSalvarMouseExited
 
     private void btnAlterarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseEntered
-        btnAlterar.setForeground(new java.awt.Color(255,255,255));
+        btnAlterar.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnAlterarMouseEntered
 
     private void btnAlterarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarMouseExited
-        btnAlterar.setForeground(new java.awt.Color(0,0,0));
+        btnAlterar.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_btnAlterarMouseExited
 
     private void btnDeletarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeletarMouseEntered
-        btnDeletar.setForeground(new java.awt.Color(255,255,255));
+        btnDeletar.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnDeletarMouseEntered
 
     private void btnDeletarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeletarMouseExited
-        btnDeletar.setForeground(new java.awt.Color(0,0,0));
+        btnDeletar.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_btnDeletarMouseExited
 
     /**
@@ -594,7 +596,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         int numero_endereco;
 
         nomeFornecedor = WordUtils.capitalize(txtNomeFornecedor.getText());
-        enderecoFornecedor = txtEnderecoFornecedor.getText();
+        enderecoFornecedor = WordUtils.capitalize(txtEnderecoFornecedor.getText());
         emailFornecedor = txtEmailFornecedor.getText();
         cnpjFornecedor = txtCnpjFornecedor.getText();
         telefoneFornecedor = txtTelefoneFornecedor.getText();
@@ -660,7 +662,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
             }
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
+            JOptionPane.showMessageDialog(null, "Erro na pesquisa!");
         }
     }
 
@@ -685,7 +687,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                 });
             }
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
+            JOptionPane.showMessageDialog(null, "Erro na pesquisa!");
         }
     }
 
@@ -710,7 +712,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                 });
             }
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
+            JOptionPane.showMessageDialog(null, "Erro na pesquisa!");
         }
     }
 
@@ -749,7 +751,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         telefone_fornecedor = txtTelefoneFornecedor.getText();
         numero_endereco = Integer.parseInt(txtNumero_Endereco.getText());
         nome_fornecedor = WordUtils.capitalize(txtNomeFornecedor.getText());
-        endereco_fornecedor = txtEnderecoFornecedor.getText();
+        endereco_fornecedor =WordUtils.capitalize(txtEnderecoFornecedor.getText());
         email_fornecedor = txtEmailFornecedor.getText();
 
         FornecedorDTO objfornecedordto = new FornecedorDTO();
@@ -796,73 +798,73 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     }
 
     public void ValidarCamposCadastrar() {
-                if (txtNomeFornecedor.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "O campo nome é obrigatório, favor preencher!");
-                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
-                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNomeFornecedor.requestFocus();
-                return;
-            }
-            if (txtCnpjFornecedor.getText().trim().length() < 18) {
-                JOptionPane.showMessageDialog(null, "O campo cnpj é obrigatório, favor preencher!");
-                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
-                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtCnpjFornecedor.requestFocus();
-                return;
-            }
-            if (txtEnderecoFornecedor.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "O campo endereço é obrigatório, favor preencher!");
-                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
-                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEnderecoFornecedor.requestFocus();
-                return;
-            }
+        if (txtNomeFornecedor.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo nome é obrigatório, favor preencher!");
+            txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomeFornecedor.requestFocus();
+            return;
+        }
+        if (txtCnpjFornecedor.getText().trim().length() < 18) {
+            JOptionPane.showMessageDialog(null, "O campo cnpj é obrigatório, favor preencher!");
+            txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtCnpjFornecedor.requestFocus();
+            return;
+        }
+        if (txtEnderecoFornecedor.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo endereço é obrigatório, favor preencher!");
+            txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEnderecoFornecedor.requestFocus();
+            return;
+        }
 
-            if (txtNumero_Endereco.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "O campo numero de endereço é obrigatório, favor preencher!");
-                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
-                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-            }
+        if (txtNumero_Endereco.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo numero de endereço é obrigatório, favor preencher!");
+            txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        }
 
-            if (txtTelefoneFornecedor.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "O campo telefone é obrigatório, favor preencher!");
-                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
-                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtTelefoneFornecedor.requestFocus();
-                return;
-            }
-            if (txtEmailFornecedor.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "O campo email é obrigatório, favor preencher!");
-                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
-                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEmailFornecedor.requestFocus();
-                return;
-            }
+        if (txtTelefoneFornecedor.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo telefone é obrigatório, favor preencher!");
+            txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtTelefoneFornecedor.requestFocus();
+            return;
+        }
+        if (txtEmailFornecedor.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo email é obrigatório, favor preencher!");
+            txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEmailFornecedor.requestFocus();
+            return;
+        }
         txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
         txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
         txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
@@ -876,62 +878,61 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     }
 
     public void ValidarCamposAlterar() {
-            if (txtNomeFornecedor.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "O campo nome é obrigatório, favor preencher!");
-                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
-                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNomeFornecedor.requestFocus();
+        if (txtNomeFornecedor.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo nome é obrigatório, favor preencher!");
+            txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomeFornecedor.requestFocus();
 
-                return;
-            } else if (txtCnpjFornecedor.getText().trim().length() < 18) {
-                JOptionPane.showMessageDialog(null, "O campo cnpj é obrigatório, favor preencher!");
-                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
-                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtCnpjFornecedor.requestFocus();
-                return;
-            }
-            if (txtEnderecoFornecedor.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "O campo endereço é obrigatório, favor preencher!");
-                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
-                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEnderecoFornecedor.requestFocus();
-                return;
-            }
-            else if (txtTelefoneFornecedor.getText().trim().length() < 13) {
-                JOptionPane.showMessageDialog(null, "O campo telefone é obrigatório, favor preencher!");
-                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
-                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtTelefoneFornecedor.requestFocus();
-                return;
-            }
-            if (txtEmailFornecedor.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "O campo email é obrigatório, favor preencher!");
-                txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
-                txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-                txtEmailFornecedor.requestFocus();
-                return;
+            return;
+        } else if (txtCnpjFornecedor.getText().trim().length() < 18) {
+            JOptionPane.showMessageDialog(null, "O campo cnpj é obrigatório, favor preencher!");
+            txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtCnpjFornecedor.requestFocus();
+            return;
+        }
+        if (txtEnderecoFornecedor.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo endereço é obrigatório, favor preencher!");
+            txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEnderecoFornecedor.requestFocus();
+            return;
+        } else if (txtTelefoneFornecedor.getText().trim().length() < 13) {
+            JOptionPane.showMessageDialog(null, "O campo telefone é obrigatório, favor preencher!");
+            txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtTelefoneFornecedor.requestFocus();
+            return;
+        }
+        if (txtEmailFornecedor.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo email é obrigatório, favor preencher!");
+            txtEmailFornecedor.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtTelefoneFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtNumero_Endereco.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtEmailFornecedor.requestFocus();
+            return;
 
-            }
+        }
         txtCnpjFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
         txtNomeFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
         txtEnderecoFornecedor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
@@ -941,5 +942,10 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         AlterarFornecedor();
         LimparCampos();
         ListarFornecedor();
+    }
+
+    public void Icone() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Img/sheriff-badge.png")));
+
     }
 }

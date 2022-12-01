@@ -6,6 +6,7 @@ package View;
 
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,9 +24,10 @@ public class LoginView extends javax.swing.JFrame {
     public LoginView() {
         initComponents();
         initComplementos();
+        icone();
     }
-    
-    public void initComplementos(){
+
+    public void initComplementos() {
         this.setLocationRelativeTo(null);
     }
 
@@ -181,34 +183,34 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSenhaActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-       		Logar();
+        Logar();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void btnEntrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseEntered
-        btnEntrar.setForeground(new java.awt.Color(255,255,255));
+        btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnEntrarMouseEntered
 
     private void btnEntrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseExited
-        btnEntrar.setForeground(new java.awt.Color(0,0,0));
+        btnEntrar.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_btnEntrarMouseExited
 
     private void btnNovoUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoUsuarioMouseEntered
-        btnNovoUsuario.setForeground(new java.awt.Color(255,255,255));
+        btnNovoUsuario.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnNovoUsuarioMouseEntered
 
     private void btnNovoUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoUsuarioMouseExited
-        btnNovoUsuario.setForeground(new java.awt.Color(0,0,0));
+        btnNovoUsuario.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_btnNovoUsuarioMouseExited
 
     private void btnNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoUsuarioActionPerformed
         CadastroUsuario objusuario = new CadastroUsuario();
         objusuario.setVisible(true);
-        
+
         dispose();
     }//GEN-LAST:event_btnNovoUsuarioActionPerformed
 
     private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEntrarKeyPressed
-        
+
     }//GEN-LAST:event_btnEntrarKeyPressed
 
     private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
@@ -268,30 +270,36 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JFormattedTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
-public void Logar(){
-    try {				String nome_usuario, senha_usuario;
-					
-					nome_usuario = txtUsuario.getText();
-					senha_usuario = txtSenha.getText();
-					
-					UsuarioDTO dfUsuario = new UsuarioDTO ();
-					dfUsuario.setNome_usuario(nome_usuario);
-					dfUsuario.setSenha_usuario(senha_usuario);
-					
-					UsuarioDAO bancoalmox = new UsuarioDAO();
-					ResultSet rsUsuarioDAO = bancoalmox.autentificacaoUsuario(dfUsuario);
-					
-					if (rsUsuarioDAO.next()) {
-						JOptionPane.showMessageDialog(null,"Login Realizado com sucesso!!!");
-						Inicio objinicio = new Inicio();
-                                                objinicio.setVisible(true);
-                                                
-                                                dispose();
-					} else {
-						JOptionPane.showMessageDialog(null, "Usuario ou Senha Invalida");
-					}
-				} catch (SQLException erro) {
-					JOptionPane.showMessageDialog(null, "LoginView" + erro);
-				}
-}
+public void Logar() {
+        try {
+            String nome_usuario, senha_usuario;
+
+            nome_usuario = txtUsuario.getText();
+            senha_usuario = txtSenha.getText();
+
+            UsuarioDTO dfUsuario = new UsuarioDTO();
+            dfUsuario.setNome_usuario(nome_usuario);
+            dfUsuario.setSenha_usuario(senha_usuario);
+
+            UsuarioDAO bancoalmox = new UsuarioDAO();
+            ResultSet rsUsuarioDAO = bancoalmox.autentificacaoUsuario(dfUsuario);
+
+            if (rsUsuarioDAO.next()) {
+                JOptionPane.showMessageDialog(null, "Login Realizado com sucesso!!!");
+                Inicio objinicio = new Inicio();
+                objinicio.setVisible(true);
+
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario ou Senha Invalida");
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "LoginView" + erro);
+        }
+    }
+
+    public void icone() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Img/sheriff-badge.png")));
+
+    }
 }

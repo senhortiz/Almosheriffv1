@@ -7,6 +7,7 @@ package View;
 import DAO.FabricantesDAO;
 import DTO.FabricantesDTO;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
@@ -26,6 +27,7 @@ public class CadastroFabricante extends javax.swing.JFrame {
         initComponents();
         ListarFabricantes();
         initComplementos();
+        Icone();
     }
 
     public void initComplementos() {
@@ -412,8 +414,7 @@ public void ListarFabricantes() {
             for (int num = 0; num < lista.size(); num++) {
                 model.addRow(new Object[]{
                     lista.get(num).getId_fabricante(),
-                    lista.get(num).getNome_fabricante(),
-                });
+                    lista.get(num).getNome_fabricante(),});
             }
         } catch (Exception erro) {
             //JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
@@ -497,5 +498,10 @@ public void ListarFabricantes() {
         AlterarFabricantes();
         LimparCampos();
         ListarFabricantes();
+    }
+
+    public void Icone() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Img/sheriff-badge.png")));
+
     }
 }

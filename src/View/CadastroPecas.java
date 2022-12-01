@@ -9,6 +9,7 @@ import DAO.PecasDAO;
 import DTO.PecasDTO;
 import com.sun.jdi.connect.spi.Connection;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.lang3.text.WordUtils;
 
 /**
  *
@@ -35,6 +37,7 @@ public class CadastroPecas extends javax.swing.JFrame {
         initComplementos();
         ListarPecas();
         restaurarDadosCbxFab();
+        Icone();
 
     }
 
@@ -156,7 +159,7 @@ public class CadastroPecas extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nome", "Fabricante", "Unidade", "Quantidade", "Valor", "Localização"
+                "Codigo", "Nome", "Fabricante", "Unidade", "Quantidade", "Valor(R$)", "Localização"
             }
         )
         {
@@ -693,7 +696,7 @@ public class CadastroPecas extends javax.swing.JFrame {
                 });
             }
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null,"Erro na pesquisa!");
+            JOptionPane.showMessageDialog(null, "Erro na pesquisa!");
         }
     }
 
@@ -718,8 +721,8 @@ public class CadastroPecas extends javax.swing.JFrame {
 
         nomePecas = txtNomePecas.getText();
         idFabricante = cbxFabricante.getSelectedItem().toString();
-        unidade = txtUnidade.getText();
-        localizacao = txtLoc.getText();
+        unidade = WordUtils.capitalize(txtUnidade.getText());
+        localizacao = WordUtils.capitalize(txtLoc.getText());
         quantidade = Integer.parseInt(txtQuantidade.getText());
         valor = Double.parseDouble(txtValor.getText());
 
@@ -767,10 +770,10 @@ public class CadastroPecas extends javax.swing.JFrame {
 
         id_pecas = Integer.parseInt(txtCodigo.getText());
         quantidade = Integer.parseInt(txtQuantidade.getText());
-        nome_pecas = txtNomePecas.getText();
+        nome_pecas =WordUtils.capitalize(txtNomePecas.getText());
         idFabricante = cbxFabricante.getSelectedItem().toString();
-        unidade = txtUnidade.getText();
-        localizacao = txtLoc.getText();
+        unidade =WordUtils.capitalize(txtUnidade.getText());
+        localizacao = WordUtils.capitalize(txtLoc.getText());
         valor = Double.parseDouble(txtValor.getText());
 
         PecasDTO objpecasdto = new PecasDTO();
@@ -969,6 +972,11 @@ public class CadastroPecas extends javax.swing.JFrame {
         txtValor.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
         txtUnidade.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
         AlterarPecas();
+
+    }
+
+    public void Icone() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Img/sheriff-badge.png")));
 
     }
 }

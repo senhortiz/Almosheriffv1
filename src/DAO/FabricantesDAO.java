@@ -84,7 +84,7 @@ public void alterarFabricantes(FabricantesDTO objfabricantesdto){
         }
 
         public void excluirFabricantes(FabricantesDTO objfabricantesdto){
-            String sql = "delete from fabricante where codigo = ?";
+            String sql = "delete from fabricante where id = ?";
             conn = new ConexaoDAO().Conectar();
             
             try {

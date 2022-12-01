@@ -7,6 +7,7 @@ package View;
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
 import java.awt.Color;
+import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import org.apache.commons.lang3.text.WordUtils;
@@ -23,8 +24,9 @@ public class CadastroUsuario extends javax.swing.JFrame {
     public CadastroUsuario() {
         initComponents();
         initComplementos();
+        Icone();
     }
-    
+
     public void initComplementos() {
         this.setLocationRelativeTo(null);
     }
@@ -169,11 +171,11 @@ public class CadastroUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarUsuarioMouseEntered
-        btnCadastrarUsuario.setForeground(new java.awt.Color(255,255,255));
+        btnCadastrarUsuario.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnCadastrarUsuarioMouseEntered
 
     private void btnCadastrarUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarUsuarioMouseExited
-        btnCadastrarUsuario.setForeground(new java.awt.Color(0,0,0));
+        btnCadastrarUsuario.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_btnCadastrarUsuarioMouseExited
 
     private void btnCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarUsuarioActionPerformed
@@ -184,7 +186,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         LoginView objlogin = new LoginView();
         objlogin.setVisible(true);
-        
+
         dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
@@ -235,62 +237,66 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtConfirmarSenha;
     private javax.swing.JFormattedTextField txtUsuarioCadastro;
     // End of variables declaration//GEN-END:variables
-public void CadastrarUsuario(){
-        String nomeCliente,enderecoCliente,emailCliente;
-				String nome_usuario,senha_usuario;
-				
-				nome_usuario = txtUsuarioCadastro.getText();
-				senha_usuario = txtCadastroSenha.getText();
-				
-				
-				UsuarioDTO objusuariodto = new UsuarioDTO();
-				objusuariodto.setNome_usuario(nome_usuario);
-				objusuariodto.setSenha_usuario(senha_usuario);
-				
-				UsuarioDAO objusuariodao = new UsuarioDAO();
-				objusuariodao.cadastrarUsuario(objusuariodto);
-                                
-    }
-public void ValidarCampos() {
-    if(txtUsuarioCadastro.getText().equals("")){
-        JOptionPane.showMessageDialog(null, "O campo usuario é obrigatório, favor preencher!");
-        txtUsuarioCadastro.setBorder(BorderFactory.createLineBorder(Color.RED));
-        txtCadastroSenha.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-        txtConfirmarSenha.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-        txtUsuarioCadastro.requestFocus();
-        return;
-    }
-    if(txtCadastroSenha.getText().equals("")){
-        JOptionPane.showMessageDialog(null, "O campo senha é obrigatório, favor preencher!");
-        txtCadastroSenha.setBorder(BorderFactory.createLineBorder(Color.RED));
-        txtUsuarioCadastro.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-        txtConfirmarSenha.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-        txtCadastroSenha.requestFocus();
-        return;
-    }
-    if(txtConfirmarSenha.getText().equals("")){
-        JOptionPane.showMessageDialog(null, "O campo usuario é obrigatório, favor preencher!");
-        txtConfirmarSenha.setBorder(BorderFactory.createLineBorder(Color.RED));
-        txtCadastroSenha.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-        txtUsuarioCadastro.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-        txtConfirmarSenha.requestFocus();
-        return;
-        
-    }
-    else if(!(txtCadastroSenha.getText().equals(txtConfirmarSenha.getText()))){
-        JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
-        return;
-    }
-    
-    txtUsuarioCadastro.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-    txtConfirmarSenha.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-    txtCadastroSenha.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
-    CadastrarUsuario();
+public void CadastrarUsuario() {
+        String nomeCliente, enderecoCliente, emailCliente;
+        String nome_usuario, senha_usuario;
+
+        nome_usuario = txtUsuarioCadastro.getText();
+        senha_usuario = txtCadastroSenha.getText();
+
+        UsuarioDTO objusuariodto = new UsuarioDTO();
+        objusuariodto.setNome_usuario(nome_usuario);
+        objusuariodto.setSenha_usuario(senha_usuario);
+
+        UsuarioDAO objusuariodao = new UsuarioDAO();
+        objusuariodao.cadastrarUsuario(objusuariodto);
+
     }
 
-public void LimparCampos(){
-    txtUsuarioCadastro.setText("");
-    txtCadastroSenha.setText("");
-    txtConfirmarSenha.setText("");
-}
+    public void ValidarCampos() {
+        if (txtUsuarioCadastro.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo usuario é obrigatório, favor preencher!");
+            txtUsuarioCadastro.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtCadastroSenha.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtConfirmarSenha.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtUsuarioCadastro.requestFocus();
+            return;
+        }
+        if (txtCadastroSenha.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo senha é obrigatório, favor preencher!");
+            txtCadastroSenha.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtUsuarioCadastro.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtConfirmarSenha.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtCadastroSenha.requestFocus();
+            return;
+        }
+        if (txtConfirmarSenha.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo usuario é obrigatório, favor preencher!");
+            txtConfirmarSenha.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtCadastroSenha.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtUsuarioCadastro.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+            txtConfirmarSenha.requestFocus();
+            return;
+
+        } else if (!(txtCadastroSenha.getText().equals(txtConfirmarSenha.getText()))) {
+            JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+            return;
+        }
+
+        txtUsuarioCadastro.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtConfirmarSenha.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        txtCadastroSenha.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 255, 255)));
+        CadastrarUsuario();
+    }
+
+    public void LimparCampos() {
+        txtUsuarioCadastro.setText("");
+        txtCadastroSenha.setText("");
+        txtConfirmarSenha.setText("");
+    }
+
+    public void Icone() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Img/sheriff-badge.png")));
+
+    }
 }

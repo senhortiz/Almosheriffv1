@@ -4,6 +4,7 @@
  */
 package View;
 
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,9 +19,10 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         initComplementos();
+        Icone();
     }
-    
-    public void initComplementos(){
+
+    public void initComplementos() {
         this.setLocationRelativeTo(null);
     }
 
@@ -200,69 +202,69 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEstoqueMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEstoqueMouseEntered
-        btnEstoque.setForeground(new java.awt.Color(255,255,255));
+        btnEstoque.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnEstoqueMouseEntered
 
     private void btnEstoqueMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEstoqueMouseExited
-        btnEstoque.setForeground(new java.awt.Color(0,0,0));
+        btnEstoque.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_btnEstoqueMouseExited
 
     private void btnFabricantesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFabricantesMouseEntered
-       btnFabricantes.setForeground(new java.awt.Color(255,255,255));
+        btnFabricantes.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnFabricantesMouseEntered
 
     private void btnFabricantesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFabricantesMouseExited
-       btnFabricantes.setForeground(new java.awt.Color(0,0,0));
+        btnFabricantes.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_btnFabricantesMouseExited
 
     private void btnFornecedoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFornecedoresMouseEntered
-        btnFornecedores.setForeground(new java.awt.Color(255,255,255));
+        btnFornecedores.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnFornecedoresMouseEntered
 
     private void btnFornecedoresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFornecedoresMouseExited
-        btnFornecedores.setForeground(new java.awt.Color(0,0,0));
+        btnFornecedores.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_btnFornecedoresMouseExited
 
     private void btnSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseEntered
-        btnSair.setForeground(new java.awt.Color(255,255,255));
+        btnSair.setForeground(new java.awt.Color(255, 255, 255));
     }//GEN-LAST:event_btnSairMouseEntered
 
     private void btnSairMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseExited
-        btnSair.setForeground(new java.awt.Color(0,0,0));
+        btnSair.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_btnSairMouseExited
 
     private void btnEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstoqueActionPerformed
-        CadastroPecas objpecas = new CadastroPecas ();
+        CadastroPecas objpecas = new CadastroPecas();
         objpecas.setVisible(true);
-        
+
         dispose();
     }//GEN-LAST:event_btnEstoqueActionPerformed
 
     private void btnFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFornecedoresActionPerformed
         CadastroFornecedor objfornecedor = new CadastroFornecedor();
         objfornecedor.setVisible(true);
-        
+
         dispose();
     }//GEN-LAST:event_btnFornecedoresActionPerformed
 
     private void btnFabricantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFabricantesActionPerformed
         CadastroFabricante objfabricante = new CadastroFabricante();
         objfabricante.setVisible(true);
-        
+
         dispose();
     }//GEN-LAST:event_btnFabricantesActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-       Object[] opcoes = {"Sim","Nao"};
-        int resultado = JOptionPane.showOptionDialog(null,"Deseja Realmente Sair?", "Sair", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opcoes,opcoes[1]);
-       
+        Object[] opcoes = {"Sim", "Nao"};
+        int resultado = JOptionPane.showOptionDialog(null, "Deseja Realmente Sair?", "Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[1]);
+
         if (resultado == JOptionPane.YES_OPTION) {
             LoginView objlogin = new LoginView();
             objlogin.setVisible(true);
-            
+
             dispose();
-            
-        }else {
+
+        } else {
             return;
         }
     }//GEN-LAST:event_btnSairActionPerformed
@@ -312,4 +314,8 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+public void Icone() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Img/sheriff-badge.png")));
+
+    }
 }
